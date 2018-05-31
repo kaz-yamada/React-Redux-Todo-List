@@ -21,6 +21,13 @@ export function toggleItem(index: number): IAction {
   };
 }
 
+export function removeItem(index: number): IAction {
+  return {
+    type: "REMOVE_ITEM",
+    payload: index
+  };
+}
+
 export function applyFilter(filterName: string): IAction {
   return {
     type: "APPLY_FILTER",

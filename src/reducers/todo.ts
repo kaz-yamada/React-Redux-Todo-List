@@ -3,8 +3,10 @@ import { IAction, IToDoStore } from "../model/store";
 export const defaultToDo: IToDoStore = {
   toDoList: [],
   newItem: "",
-  filter: "all"
+  filterType: "all"
 };
+
+let nextId = 0;
 
 export default function todoReducer(
   state: IToDoStore = defaultToDo,
@@ -14,7 +16,10 @@ export default function todoReducer(
     case "ADD_NEW_ITEM": {
       return {
         ...state,
-        toDoList: [...state.toDoList, { value: state.newItem, status: false }],
+        toDoList: [
+          ...state.toDoList,
+          { id: nextId++, value: state.newItem, status: false }
+        ],
         newItem: ""
       };
     }
@@ -27,14 +32,20 @@ export default function todoReducer(
     case "APPLY_FILTER": {
       return {
         ...state,
-        filter: action.payload
+        filterType: action.payload
+      };
+    }
+    case "REMOVE_ITEM": {
+      return {
+        ...state,
+        toDoList: state.toDoList.filter(item => item.id !== action.payload)
       };
     }
     case "TOGGLE_ITEM": {
       return {
         ...state,
-        toDoList: state.toDoList.map((item, index) => {
-          if (index === action.payload) {
+        toDoList: state.toDoList.map(item => {
+          if (item.id === action.payload) {
             item.status = !item.status;
           }
 
@@ -43,6 +54,7 @@ export default function todoReducer(
       };
     }
     case "INIT_TODO_LIST": {
+      nextId = 0;
       return { ...state };
     }
     default: {

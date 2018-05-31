@@ -25,7 +25,9 @@ class AddItem extends React.Component<IProps & IDispatchFromProps, {}> {
   }
 
   private handleClick = () => {
-    this.props.addToDoItem();
+    if (this.props.value) {
+      this.props.addToDoItem();
+    }
   };
 
   private updateText = (event: any) => {
@@ -38,10 +40,10 @@ class AddItem extends React.Component<IProps & IDispatchFromProps, {}> {
   public render() {
     return (
       <Grid container={true} className="add-item" alignItems="flex-end">
-        <Grid item={true} xs={6}>
+        <Grid item={true} sm={6}>
           <TextField
             label="Enter New Item"
-            className="text-field"
+            className="add-item-text"
             fullWidth={true}
             onChange={this.updateText}
             value={this.props.value}
@@ -51,7 +53,7 @@ class AddItem extends React.Component<IProps & IDispatchFromProps, {}> {
           <Button
             variant="raised"
             color="primary"
-            className="add-todo"
+            className="add-item-button"
             onClick={this.handleClick}
           >
             Add Item

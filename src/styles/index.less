@@ -1,0 +1,56 @@
+@grey: #263238;
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.app {
+  height: 100%;
+}
+
+.page {
+  padding: 80px 20px 20px;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  .inner-page {
+    min-height: 100%;
+    padding: 20px;
+    flex: 1;
+  }
+}
+
+.add-item {
+  margin-bottom: 20px;
+
+  .add-item-text,
+  .add-item-button {
+    margin-top: 0.5em;
+  }
+}
+
+.filter-list {
+  flex-direction: row;
+}
+
+.filter-active .completed,
+.filter-completed .active {
+  h3 {
+    text-decoration: line-through;
+    color: #263238;
+  }
+  //   background-color: #666666;
+}

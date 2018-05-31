@@ -5,10 +5,11 @@ export interface IReduxStore {
 export interface IToDoStore {
   toDoList: IToDoItem[];
   newItem: string;
-  filter: string;
+  filterType: string;
 }
 
 export interface IToDoItem {
+  id: number;
   value: string;
   status: boolean;
 }
