@@ -8,6 +8,10 @@ import registerServiceWorker from "./registerServiceWorker";
 
 import "./styles/index.less";
 
+store.subscribe(() => {
+  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
+});
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

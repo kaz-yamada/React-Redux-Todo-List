@@ -1,4 +1,4 @@
-import { IAction } from "../model/store";
+import { IAction, IReduxStore } from "../model/store";
 
 export function addToDoItem(): IAction {
   return {
@@ -32,6 +32,13 @@ export function applyFilter(filterName: string): IAction {
   return {
     type: "APPLY_FILTER",
     payload: filterName
+  };
+}
+
+export function loadStore(list: IReduxStore) {
+  return {
+    type: "LOAD_STORE",
+    payload: list
   };
 }
 

@@ -9,6 +9,7 @@ import { Dispatch } from "redux";
 import {
   applyFilter,
   initToDoList,
+  loadStore,
   removeItem,
   toggleItem
 } from "../actions/todos";
@@ -24,6 +25,7 @@ interface IStoreProps {
 
 interface IDispatchFromProps {
   initList: () => void;
+  loadStore: (store: IReduxStore) => void;
   toggleItem: (index: number) => void;
   removeItem: (index: number) => void;
   applyFilter: (value: string) => void;
@@ -98,6 +100,13 @@ class ToDoList extends React.Component<
   }
 
   public componentDidMount() {
+    const persistedState = localStorage.getItem("reduxState")
+      ? JSON.parse(localStorage.getItem("reduxState") || "")
+      : {};
+    if (persistedState) {
+      this.props.loadStore(persistedState);
+    }
+
     this.setState({
       list: this.props.todos
     });
@@ -143,6 +152,7 @@ class ToDoList extends React.Component<
 
 const mapDispatchToProps = (dispatch: Dispatch): IDispatchFromProps => ({
   initList: () => dispatch(initToDoList()),
+  loadStore: (store: IReduxStore) => dispatch(loadStore(store)),
   toggleItem: (index: number) => dispatch(toggleItem(index)),
   removeItem: (index: number) => dispatch(removeItem(index)),
   applyFilter: (value: string) => dispatch(applyFilter(value))

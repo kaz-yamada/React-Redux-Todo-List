@@ -53,6 +53,11 @@ export default function todoReducer(
         })
       };
     }
+    case "LOAD_STORE": {
+      console.log(action.payload);
+      nextId = action.payload.toDos.toDoList.length;
+      return { ...action.payload.toDos };
+    }
     case "INIT_TODO_LIST": {
       nextId = 0;
       return { ...state };
