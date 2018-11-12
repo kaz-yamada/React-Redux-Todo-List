@@ -6,19 +6,19 @@ export const defaultToDo: IToDoStore = {
   filterType: "all"
 };
 
-let nextId = 0;
-
 export default function todoReducer(
   state: IToDoStore = defaultToDo,
   action: IAction
 ): IToDoStore {
+  const uuid = require("uuid/v4");
+
   switch (action.type) {
     case "ADD_NEW_ITEM": {
       return {
         ...state,
         toDoList: [
           ...state.toDoList,
-          { id: nextId++, value: state.newItem, status: false }
+          { id: uuid(), value: state.newItem, status: false }
         ],
         newItem: ""
       };
@@ -54,12 +54,11 @@ export default function todoReducer(
       };
     }
     case "LOAD_STORE": {
-      console.log(action.payload);
-      nextId = action.payload.toDos.toDoList.length;
-      return { ...action.payload.toDos };
+      if (action.payload.toDos != null) {
+        return { ...action.payload.toDos };
+      }
     }
     case "INIT_TODO_LIST": {
-      nextId = 0;
       return { ...state };
     }
     default: {

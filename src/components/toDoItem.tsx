@@ -29,6 +29,9 @@ class ToDoItem extends React.Component<IProps, {}> {
 
   public render() {
     const itemClass = this.props.item.status ? "completed" : "active";
+    if (!this.props.isFiltered) {
+      return <div />;
+    }
 
     return (
       <div>
@@ -36,7 +39,6 @@ class ToDoItem extends React.Component<IProps, {}> {
           className={itemClass}
           onClick={this.toggleStatus}
           button={true}
-          //   disabled={!this.props.isFiltered}
         >
           <Checkbox
             checked={this.props.item.status}
