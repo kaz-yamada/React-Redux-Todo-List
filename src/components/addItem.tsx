@@ -51,7 +51,7 @@ class AddItem extends React.Component<IProps & IDispatchFromProps, {}> {
         </Grid>
         <Grid item={true}>
           <Button
-            variant="raised"
+            variant="contained"
             color="primary"
             className="add-item-button"
             onClick={this.handleClick}
@@ -75,7 +75,7 @@ const mapStoreToProps = (store: IReduxStore) => {
   };
 };
 
-export default connect<IProps, IDispatchFromProps, void>(
+export default connect(
   mapStoreToProps,
   mapDispatchToProps
 )(AddItem);

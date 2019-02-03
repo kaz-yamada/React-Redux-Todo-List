@@ -158,14 +158,14 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchFromProps => ({
   applyFilter: (value: string) => dispatch(applyFilter(value))
 });
 
-const MapStoreToProps = (store: IReduxStore) => {
+const mapStateToProps = (store: IReduxStore) => {
   return {
     todos: store.toDos.toDoList,
     filterType: store.toDos.filterType
   };
 };
 
-export default connect<IStoreProps, IDispatchFromProps, void>(
-  MapStoreToProps,
+export default connect(
+  mapStateToProps,
   mapDispatchToProps
 )(ToDoList);
