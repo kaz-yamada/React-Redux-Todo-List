@@ -16,23 +16,23 @@ import {
 import AddItem from "../components/addItem";
 import FilterList from "../components/filter";
 import ToDoItem from "../components/toDoItem";
-import { IReduxStore, IToDoItem } from "../model/store";
+import { IReduxStore, IToDoItem, ITodoList } from "../model/store";
 
 interface IStoreProps {
-  todos: IToDoItem[];
+  todos: ITodoList;
   filterType: string;
 }
 
 interface IDispatchFromProps {
   initList: () => void;
   loadStore: (store: IReduxStore) => void;
-  toggleItem: (index: number) => void;
-  removeItem: (index: number) => void;
+  toggleItem: (id: string) => void;
+  removeItem: (id: string) => void;
   applyFilter: (value: string) => void;
 }
 
 interface IStates {
-  list: IToDoItem[];
+  toDoList: IToDoItem[];
   filterActive: boolean;
 }
 
@@ -43,16 +43,16 @@ class ToDoList extends React.Component<
   constructor(props: IStoreProps & IDispatchFromProps) {
     super(props);
     this.state = {
-      list: [],
+      toDoList: [],
       filterActive: false
     };
   }
 
-  private handleClick = (index: number, type: string) => {
+  private handleClick = (id: string, type: string) => {
     if (type === "remove") {
-      this.props.removeItem(index);
+      this.props.removeItem(id);
     } else if (type === "status") {
-      this.props.toggleItem(index);
+      this.props.toggleItem(id);
     }
   };
 
@@ -60,46 +60,60 @@ class ToDoList extends React.Component<
     this.props.applyFilter(value);
   };
 
+  public static getListFromStore = (
+    toDoList: ITodoList,
+    filterType: string
+  ) => {
+    let list = Object.keys(toDoList).map(key => {
+      return toDoList[key];
+    });
+
+    if (filterType === "active") {
+      list = list.sort((a, b) => {
+        if (a.status) {
+          return 1;
+        } else if (b.status) {
+          return -1;
+        }
+        return 0;
+      });
+    } else if (filterType === "completed") {
+      list = list.sort((a, b) => {
+        if (a.status) {
+          return -1;
+        } else if (b.status) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    return list;
+  };
+
   public static getDerivedStateFromProps(
     props: IStoreProps & IDispatchFromProps,
     state: IStates
   ) {
-    let todoList = [...props.todos];
+    let list = Object.keys(props.todos).map(key => {
+      return props.todos[key];
+    });
+    let filter = true;
 
     if (props.filterType === "all") {
-      return {
-        list: todoList,
-        filterActive: false
-      };
-    }
-
-    if (props.filterType === "active") {
-      todoList = todoList.sort((a, b) => {
-        if (a.status) {
-          return 1;
-        } else if (b.status) {
-          return -1;
-        }
-        return 0;
-      });
-    } else if (props.filterType === "completed") {
-      todoList = todoList.sort((a, b) => {
-        if (a.status) {
-          return -1;
-        } else if (b.status) {
-          return 1;
-        }
-        return 0;
-      });
+      filter = false;
+    } else {
+      list = ToDoList.getListFromStore(props.todos, props.filterType);
     }
 
     return {
-      list: todoList,
-      filterActive: true
+      toDoList: [...list],
+      filterActive: filter
     };
   }
 
   public componentDidMount() {
+    // Get saved user data from cache
     const persistedState = localStorage.getItem("reduxState")
       ? JSON.parse(localStorage.getItem("reduxState") || "")
       : {};
@@ -107,9 +121,7 @@ class ToDoList extends React.Component<
       this.props.loadStore(persistedState);
     }
 
-    this.setState({
-      list: this.props.todos
-    });
+    this.setState({});
   }
 
   public render() {
@@ -122,7 +134,7 @@ class ToDoList extends React.Component<
         />
         <Grid item={true} xs={12}>
           <List>
-            {this.state.list.map((item, index) => {
+            {this.state.toDoList.map((item, index) => {
               let isFiltered = true;
               if (this.props.filterType === "active" && item.status) {
                 isFiltered = false;
@@ -137,7 +149,7 @@ class ToDoList extends React.Component<
                 <ToDoItem
                   key={index}
                   index={index}
-                  item={item}
+                  item={this.props.todos[item.id]}
                   handleClick={this.handleClick}
                   isFiltered={isFiltered}
                 />
@@ -153,8 +165,8 @@ class ToDoList extends React.Component<
 const mapDispatchToProps = (dispatch: Dispatch): IDispatchFromProps => ({
   initList: () => dispatch(initToDoList()),
   loadStore: (store: IReduxStore) => dispatch(loadStore(store)),
-  toggleItem: (index: number) => dispatch(toggleItem(index)),
-  removeItem: (index: number) => dispatch(removeItem(index)),
+  toggleItem: (id: string) => dispatch(toggleItem(id)),
+  removeItem: (id: string) => dispatch(removeItem(id)),
   applyFilter: (value: string) => dispatch(applyFilter(value))
 });
 

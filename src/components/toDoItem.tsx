@@ -15,7 +15,7 @@ interface IProps {
   index: number;
   item: IToDoItem;
   isFiltered: boolean;
-  handleClick: (val: number, type: string) => void;
+  handleClick: (id: string, type: string) => void;
 }
 
 class ToDoItem extends React.Component<IProps, {}> {

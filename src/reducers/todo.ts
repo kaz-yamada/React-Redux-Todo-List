@@ -1,8 +1,7 @@
 import { IAction, IToDoStore } from "../model/store";
 
 export const defaultToDo: IToDoStore = {
-  toDoList: [],
-  newItem: "",
+  toDoList: {},
   filterType: "all"
 };
 
@@ -14,19 +13,18 @@ export default function todoReducer(
 
   switch (action.type) {
     case "ADD_NEW_ITEM": {
+      const newId = uuid();
       return {
         ...state,
-        toDoList: [
+        toDoList: {
           ...state.toDoList,
-          { id: uuid(), value: state.newItem, status: false }
-        ],
-        newItem: ""
+          [newId]: { id: newId, value: action.payload, status: false }
+        }
       };
     }
     case "UPDATE_ADD_ITEM_TEXT": {
       return {
-        ...state,
-        newItem: action.payload
+        ...state
       };
     }
     case "APPLY_FILTER": {
@@ -36,21 +34,22 @@ export default function todoReducer(
       };
     }
     case "REMOVE_ITEM": {
+      if (state.toDoList[action.payload]) {
+        delete state.toDoList[action.payload];
+      }
+
       return {
         ...state,
-        toDoList: state.toDoList.filter(item => item.id !== action.payload)
+        toDoList: { ...state.toDoList }
       };
     }
     case "TOGGLE_ITEM": {
+      const newStatus = !state.toDoList[action.payload].status;
+      state.toDoList[action.payload].status = newStatus;
+
       return {
         ...state,
-        toDoList: state.toDoList.map(item => {
-          if (item.id === action.payload) {
-            item.status = !item.status;
-          }
-
-          return item;
-        })
+        toDoList: { ...state.toDoList }
       };
     }
     case "LOAD_STORE": {

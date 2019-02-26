@@ -2,14 +2,16 @@ export interface IReduxStore {
   toDos: IToDoStore;
 }
 
+export interface ITodoList {
+  [key: string]: IToDoItem;
+}
 export interface IToDoStore {
-  toDoList: IToDoItem[];
-  newItem: string;
+  toDoList: ITodoList;
   filterType: string;
 }
 
 export interface IToDoItem {
-  id: number;
+  id: string;
   value: string;
   status: boolean;
 }

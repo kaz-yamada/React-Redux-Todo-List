@@ -1,9 +1,9 @@
 import { IAction, IReduxStore } from "../model/store";
 
-export function addToDoItem(): IAction {
+export function addToDoItem(value: string): IAction {
   return {
     type: "ADD_NEW_ITEM",
-    payload: ""
+    payload: value
   };
 }
 
@@ -14,17 +14,17 @@ export function updateAddItem(value: string): IAction {
   };
 }
 
-export function toggleItem(index: number): IAction {
+export function toggleItem(id: string): IAction {
   return {
     type: "TOGGLE_ITEM",
-    payload: index
+    payload: id
   };
 }
 
-export function removeItem(index: number): IAction {
+export function removeItem(id: string): IAction {
   return {
     type: "REMOVE_ITEM",
-    payload: index
+    payload: id
   };
 }
 

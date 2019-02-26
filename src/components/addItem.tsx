@@ -7,33 +7,36 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
-import { addToDoItem, updateAddItem } from "../actions/todos";
-import { IReduxStore } from "../model/store";
+import { addToDoItem } from "../actions/todos";
 
 interface IDispatchFromProps {
-  addToDoItem: () => void;
-  updateAddItem: (value: string) => void;
+  addToDoItem: (value: string) => void;
 }
 
-interface IProps {
-  value: string;
+interface IState {
+  newItemText: string;
 }
 
-class AddItem extends React.Component<IProps & IDispatchFromProps, {}> {
-  constructor(props: IProps & IDispatchFromProps) {
+class AddItem extends React.Component<IDispatchFromProps, IState> {
+  constructor(props: IDispatchFromProps) {
     super(props);
+
+    this.state = {
+      newItemText: ""
+    };
   }
 
   private handleClick = () => {
-    if (this.props.value) {
-      this.props.addToDoItem();
+    if (this.state.newItemText) {
+      this.props.addToDoItem(this.state.newItemText);
+      this.setState({ newItemText: "" });
     }
   };
 
   private updateText = (event: any) => {
     const value = event.target.value;
     if (value) {
-      this.props.updateAddItem(value);
+      this.setState({ newItemText: value });
     }
   };
 
@@ -46,7 +49,7 @@ class AddItem extends React.Component<IProps & IDispatchFromProps, {}> {
             className="add-item-text"
             fullWidth={true}
             onChange={this.updateText}
-            value={this.props.value}
+            value={this.state.newItemText}
           />
         </Grid>
         <Grid item={true}>
@@ -65,17 +68,10 @@ class AddItem extends React.Component<IProps & IDispatchFromProps, {}> {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): IDispatchFromProps => ({
-  addToDoItem: () => dispatch(addToDoItem()),
-  updateAddItem: (value: string) => dispatch(updateAddItem(value))
+  addToDoItem: (value: string) => dispatch(addToDoItem(value))
 });
 
-const mapStoreToProps = (store: IReduxStore) => {
-  return {
-    value: store.toDos.newItem
-  };
-};
-
 export default connect(
-  mapStoreToProps,
+  null,
   mapDispatchToProps
 )(AddItem);
