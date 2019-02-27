@@ -60,6 +60,27 @@ class ToDoList extends React.Component<
     this.props.applyFilter(value);
   };
 
+  private loadList = () => {
+    return this.state.toDoList.map((item, index) => {
+      let isFiltered = true;
+      if (this.props.filterType === "active" && item.status) {
+        isFiltered = false;
+      } else if (this.props.filterType === "completed" && !item.status) {
+        isFiltered = false;
+      }
+
+      return (
+        <ToDoItem
+          key={index}
+          index={index}
+          item={this.props.todos[item.id]}
+          handleClick={this.handleClick}
+          isFiltered={isFiltered}
+        />
+      );
+    });
+  };
+
   public static getListFromStore = (
     toDoList: ITodoList,
     filterType: string
@@ -120,42 +141,18 @@ class ToDoList extends React.Component<
     if (persistedState) {
       this.props.loadStore(persistedState);
     }
-
-    this.setState({});
   }
 
   public render() {
     return (
-      <Grid className={`list filter-${this.props.filterType}`} container={true}>
+      <Grid className={`main-grid filter-${this.props.filterType}`} container={true}>
         <AddItem />
         <FilterList
           option={this.props.filterType}
           changeFilter={this.toggleFilters}
         />
-        <Grid item={true} xs={12}>
-          <List>
-            {this.state.toDoList.map((item, index) => {
-              let isFiltered = true;
-              if (this.props.filterType === "active" && item.status) {
-                isFiltered = false;
-              } else if (
-                this.props.filterType === "completed" &&
-                !item.status
-              ) {
-                isFiltered = false;
-              }
-
-              return (
-                <ToDoItem
-                  key={index}
-                  index={index}
-                  item={this.props.todos[item.id]}
-                  handleClick={this.handleClick}
-                  isFiltered={isFiltered}
-                />
-              );
-            })}
-          </List>
+        <Grid item={true} xs={12} className="list-container">
+          <List className="list">{this.loadList()}</List>
         </Grid>
       </Grid>
     );

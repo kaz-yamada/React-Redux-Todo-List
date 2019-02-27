@@ -12,9 +12,9 @@ class Home extends React.Component<{}, {}> {
       <div id="home" className="page">
         <Header />
         <Paper className="inner-page">
-          <Grid className="todo-list" container={true} justify="center">
+          {/* <Grid className="todo-list" container={true} justify="center"> */}
             <ToDoList />
-          </Grid>
+          {/* </Grid> */}
         </Paper>
       </div>
     );

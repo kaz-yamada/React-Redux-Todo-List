@@ -6,10 +6,15 @@ html {
   padding: 0;
   font-family: sans-serif;
   margin: 0;
+  height: 100%;
+
+  display: flex;
+  flex-flow: column;
+  flex: 1;
 }
 
 #root {
-  height: 100%;
+  height: 95%;
   width: 100%;
 }
 
@@ -20,16 +25,24 @@ html {
 .page {
   padding: 80px 20px 20px;
   height: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .page {
   .inner-page {
-    min-height: 100%;
     padding: 20px;
+    min-height: 100%;
     flex: 1;
+  }
+
+  .main-grid {
+    height: 100%;
+    flex-flow: column;
+  }
+
+  .list-container {
+    overflow-y: auto;
   }
 }
 
@@ -42,8 +55,8 @@ html {
   }
 }
 
-.filter-list {
-  flex-direction: row;
+.list {
+  height: 100%;
 }
 
 .filter-active .completed,
@@ -51,5 +64,13 @@ html {
   h3 {
     text-decoration: line-through;
     color: #263238;
+  }
+}
+
+footer {
+  text-align: center;
+
+  a {
+    color: black;
   }
 }

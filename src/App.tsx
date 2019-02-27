@@ -1,14 +1,22 @@
 import * as React from "react";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Home from "./views/home";
+import Paper from "@material-ui/core/Paper";
+
+import Header from "./containers/header";
+import ToDoList from "./containers/toDoList";
 
 class App extends React.Component<{}, {}> {
   public render() {
     return (
       <div className="app">
         <CssBaseline />
-        <Home />
+        <div className="page">
+          <Header />
+          <Paper className="inner-page">
+            <ToDoList />
+          </Paper>
+        </div>
       </div>
     );
   }
