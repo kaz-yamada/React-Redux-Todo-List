@@ -14,9 +14,9 @@ import {
   toggleItem,
   updateItem
 } from "../actions/todos";
-import AddItem from "../components/AddItem1";
-import FilterList from "../components/Filter1";
-import ToDoItem from "../components/ToDoItem1";
+import AddItem from "../components/AddItem";
+import FilterList from "../components/Filter";
+import ToDoItem from "../components/ToDoItem";
 import { IReduxStore, IToDoItem, ITodoList } from "../model/store";
 
 interface IStoreProps {
@@ -179,7 +179,8 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchFromProps => ({
   loadStore: (store: IReduxStore) => dispatch(loadStore(store)),
   toggleItem: (id: string) => dispatch(toggleItem(id)),
   removeItem: (id: string) => dispatch(removeItem(id)),
-  updateItem: (id: string, newValue: string) => dispatch(updateItem(id, newValue)),
+  updateItem: (id: string, newValue: string) =>
+    dispatch(updateItem(id, newValue)),
   applyFilter: (value: string) => dispatch(applyFilter(value))
 });
 

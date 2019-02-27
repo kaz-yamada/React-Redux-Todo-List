@@ -1,10 +1,9 @@
 import * as React from "react";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
 
-import Header from "./containers/Header1";
-import ToDoList from "./containers/ToDoList1";
+import Header from "./containers/Header";
+import ToDoList from "./containers/ToDoList";
 
 class App extends React.Component<{}, {}> {
   public render() {
