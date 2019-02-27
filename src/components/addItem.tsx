@@ -3,9 +3,11 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
+
+import AddIcon from "@material-ui/icons/AddCircle";
 
 import { addToDoItem } from "../actions/todos";
 
@@ -33,36 +35,24 @@ class AddItem extends React.Component<IDispatchFromProps, IState> {
     }
   };
 
-  private updateText = (event: any) => {
-    const value = event.target.value;
-    if (value) {
-      this.setState({ newItemText: value });
-    }
+  private updateText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ newItemText: event.target.value });
   };
 
   public render() {
     return (
-      <Grid container={true} className="add-item" alignItems="flex-end">
-        <Grid item={true} sm={6}>
-          <TextField
-            label="Enter New Item"
-            className="add-item-text"
-            fullWidth={true}
-            onChange={this.updateText}
-            value={this.state.newItemText}
-          />
-        </Grid>
-        <Grid item={true}>
-          <Button
-            variant="contained"
-            color="primary"
-            className="add-item-button"
-            onClick={this.handleClick}
-          >
-            Add Item
-          </Button>
-        </Grid>
-      </Grid>
+      <Paper className="add-item" elevation={1}>
+        <TextField
+          label="Enter New Item"
+          className="add-item-text"
+          fullWidth={true}
+          onChange={this.updateText}
+          value={this.state.newItemText}
+        />
+        <IconButton aria-label="Add" onClick={this.handleClick}>
+          <AddIcon />
+        </IconButton>
+      </Paper>
     );
   }
 }

@@ -28,6 +28,13 @@ export function removeItem(id: string): IAction {
   };
 }
 
+export function updateItem(itemId: string, newText: string): IAction {
+  return {
+    type: "UPDATE_ITEM",
+    payload: { id: itemId, newValue: newText }
+  };
+}
+
 export function applyFilter(filterName: string): IAction {
   return {
     type: "APPLY_FILTER",

@@ -11,11 +11,12 @@ import {
   initToDoList,
   loadStore,
   removeItem,
-  toggleItem
+  toggleItem,
+  updateItem
 } from "../actions/todos";
-import AddItem from "../components/addItem";
-import FilterList from "../components/filter";
-import ToDoItem from "../components/toDoItem";
+import AddItem from "../components/AddItem";
+import FilterList from "../components/Filter";
+import ToDoItem from "../components/ToDoItem";
 import { IReduxStore, IToDoItem, ITodoList } from "../model/store";
 
 interface IStoreProps {
@@ -28,6 +29,7 @@ interface IDispatchFromProps {
   loadStore: (store: IReduxStore) => void;
   toggleItem: (id: string) => void;
   removeItem: (id: string) => void;
+  updateItem: (id: string, newValue: string) => void;
   applyFilter: (value: string) => void;
 }
 
@@ -48,11 +50,21 @@ class ToDoList extends React.Component<
     };
   }
 
-  private handleClick = (id: string, type: string) => {
-    if (type === "remove") {
-      this.props.removeItem(id);
-    } else if (type === "status") {
-      this.props.toggleItem(id);
+  private handleClick = (id: string, type: string, newValue?: string) => {
+    switch (type) {
+      case "remove":
+        this.props.removeItem(id);
+        break;
+      case "status":
+        this.props.toggleItem(id);
+        break;
+      case "update":
+        if (newValue) {
+          this.props.updateItem(id, newValue);
+        }
+        break;
+      default:
+        break;
     }
   };
 
@@ -145,7 +157,10 @@ class ToDoList extends React.Component<
 
   public render() {
     return (
-      <Grid className={`main-grid filter-${this.props.filterType}`} container={true}>
+      <Grid
+        className={`main-grid filter-${this.props.filterType}`}
+        container={true}
+      >
         <AddItem />
         <FilterList
           option={this.props.filterType}
@@ -164,6 +179,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchFromProps => ({
   loadStore: (store: IReduxStore) => dispatch(loadStore(store)),
   toggleItem: (id: string) => dispatch(toggleItem(id)),
   removeItem: (id: string) => dispatch(removeItem(id)),
+  updateItem: (id: string, newValue: string) => dispatch(updateItem(id, newValue)),
   applyFilter: (value: string) => dispatch(applyFilter(value))
 });
 

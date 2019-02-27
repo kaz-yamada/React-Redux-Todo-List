@@ -31,7 +31,7 @@ html {
 
 .page {
   .inner-page {
-    padding: 20px;
+    padding: 10px;
     min-height: 100%;
     flex: 1;
   }
@@ -47,6 +47,10 @@ html {
 }
 
 .add-item {
+  padding: 10px 10px 15px 10px;
+  display: flex;
+  align-items: center;
+  width: 100%;
   margin-bottom: 20px;
 
   .add-item-text,

@@ -52,6 +52,14 @@ export default function todoReducer(
         toDoList: { ...state.toDoList }
       };
     }
+    case "UPDATE_ITEM": {
+      state.toDoList[action.payload.id].value = action.payload.newValue;
+
+      return {
+        ...state,
+        toDoList: { ...state.toDoList }
+      };
+    }
     case "LOAD_STORE": {
       if (action.payload.toDos != null) {
         return { ...action.payload.toDos };

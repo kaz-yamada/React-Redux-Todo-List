@@ -3,8 +3,8 @@ import * as React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 
-import Header from "./containers/header";
-import ToDoList from "./containers/toDoList";
+import Header from "./containers/Header";
+import ToDoList from "./containers/ToDoList";
 
 class App extends React.Component<{}, {}> {
   public render() {
@@ -13,9 +13,9 @@ class App extends React.Component<{}, {}> {
         <CssBaseline />
         <div className="page">
           <Header />
-          <Paper className="inner-page">
+          <div className="inner-page">
             <ToDoList />
-          </Paper>
+          </div>
         </div>
       </div>
     );
