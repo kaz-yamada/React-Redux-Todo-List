@@ -70,6 +70,7 @@ class ToDoItem extends React.Component<IProps, IStates> {
             <SaveIcon />
           </IconButton>
         </ListItem>
+        <Divider />
       </div>
     );
   };
