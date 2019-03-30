@@ -3,7 +3,12 @@ import toDos from "./todoReducer";
 
 import { applyMiddleware, combineReducers, createStore } from "redux";
 
-const middleware = applyMiddleware(logger);
+let middleware = {};
+
+if (process.env.NODE_ENV !== "production") {
+  middleware = applyMiddleware(logger);
+}
+
 const reducers = combineReducers({ toDos });
 
 export const store = createStore(reducers, middleware);

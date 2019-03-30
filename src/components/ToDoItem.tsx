@@ -12,13 +12,12 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import SaveIcon from "@material-ui/icons/Save";
 
-import { IToDoItem } from "../model/store";
+import { IToDoItemProps } from "../containers/ToDoItemContainer";
 
 interface IProps {
-  index: number;
-  item: IToDoItem;
-  isFiltered: boolean;
-  handleClick: (id: string, type: string, newValue?: string) => void;
+  id: string;
+  isCompleted: boolean;
+  value: string;
 }
 
 interface IStates {
@@ -26,30 +25,30 @@ interface IStates {
   newItem: string;
 }
 
-class ToDoItem extends React.Component<IProps, IStates> {
-  constructor(props: IProps) {
+class ToDoItem extends React.Component<IProps & IToDoItemProps, IStates> {
+  constructor(props: IProps & IToDoItemProps) {
     super(props);
     this.state = {
       isEditing: false,
-      newItem: this.props.item.value
+      newItem: this.props.value
     };
   }
 
-  private handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  private onTextUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ newItem: event.target.value });
   };
 
   private toggleStatus = () => {
-    this.props.handleClick(this.props.item.id, "status");
+    this.props.toggleItem(this.props.id);
   };
 
   private updateItem = () => {
     this.setState({ isEditing: false });
-    this.props.handleClick(this.props.item.id, "update", this.state.newItem);
+    this.props.updateItem(this.props.id, this.state.newItem);
   };
 
   private removeItem = () => {
-    this.props.handleClick(this.props.item.id, "remove");
+    this.props.removeItem(this.props.id);
   };
 
   private toggleEdit = () => {
@@ -62,7 +61,7 @@ class ToDoItem extends React.Component<IProps, IStates> {
         <ListItem>
           <TextField
             style={{ width: "100%" }}
-            onChange={this.handleChange}
+            onChange={this.onTextUpdate}
             value={this.state.newItem}
           />
 
@@ -76,7 +75,7 @@ class ToDoItem extends React.Component<IProps, IStates> {
   };
 
   private renderItem = () => {
-    const itemClass = this.props.item.status ? "completed" : "active";
+    const itemClass = this.props.isCompleted ? "completed" : "active";
     return (
       <div>
         <ListItem
@@ -84,11 +83,8 @@ class ToDoItem extends React.Component<IProps, IStates> {
           onClick={this.toggleStatus}
           button={true}
         >
-          <Checkbox
-            checked={this.props.item.status}
-            color={this.props.isFiltered ? "secondary" : "default"}
-          />
-          <ListItemText primary={this.props.item.value} />
+          <Checkbox checked={this.props.isCompleted} />
+          <ListItemText primary={this.props.value} />
           <ListItemSecondaryAction>
             <IconButton aria-label="Edit" onClick={this.toggleEdit}>
               <EditIcon />
@@ -104,9 +100,7 @@ class ToDoItem extends React.Component<IProps, IStates> {
   };
 
   public render() {
-    if (!this.props.isFiltered) {
-      return <div />;
-    } else if (this.state.isEditing) {
+    if (this.state.isEditing) {
       return this.renderForm();
     } else {
       return this.renderItem();

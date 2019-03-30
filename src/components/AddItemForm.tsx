@@ -1,17 +1,12 @@
 import * as React from "react";
 
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 
 import AddIcon from "@material-ui/icons/AddCircle";
 
-import { addToDoItem } from "../actions/todos";
-
-interface IDispatchFromProps {
+interface IProps {
   addToDoItem: (value: string) => void;
 }
 
@@ -19,8 +14,8 @@ interface IState {
   newItemText: string;
 }
 
-class AddItem extends React.Component<IDispatchFromProps, IState> {
-  constructor(props: IDispatchFromProps) {
+class AddItemForm extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -57,11 +52,4 @@ class AddItem extends React.Component<IDispatchFromProps, IState> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): IDispatchFromProps => ({
-  addToDoItem: (value: string) => dispatch(addToDoItem(value))
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(AddItem);
+export default AddItemForm;

@@ -1,3 +1,4 @@
+import uuid from "uuid";
 import { IAction, IToDoStore } from "../model/store";
 
 export const defaultToDo: IToDoStore = {
@@ -9,8 +10,6 @@ export default function todoReducer(
   state: IToDoStore = defaultToDo,
   action: IAction
 ): IToDoStore {
-  const uuid = require("uuid/v4");
-
   switch (action.type) {
     case "ADD_NEW_ITEM": {
       const newId = uuid();
@@ -18,7 +17,7 @@ export default function todoReducer(
         ...state,
         toDoList: {
           ...state.toDoList,
-          [newId]: { id: newId, value: action.payload, status: false }
+          [newId]: { id: newId, value: action.payload, isCompleted: false }
         }
       };
     }
@@ -44,8 +43,9 @@ export default function todoReducer(
       };
     }
     case "TOGGLE_ITEM": {
-      const newStatus = !state.toDoList[action.payload].status;
-      state.toDoList[action.payload].status = newStatus;
+      state.toDoList[action.payload].isCompleted = !state.toDoList[
+        action.payload
+      ].isCompleted;
 
       return {
         ...state,

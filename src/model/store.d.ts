@@ -13,7 +13,7 @@ export interface IToDoStore {
 export interface IToDoItem {
   id: string;
   value: string;
-  status: boolean;
+  isCompleted: boolean;
 }
 
 export interface IAction {

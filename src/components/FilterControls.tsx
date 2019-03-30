@@ -7,22 +7,26 @@ import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-interface IProps {
-  option: string;
-  changeFilter: (value: string) => void;
-}
+import {
+  IFilterControlDispatch,
+  IFilterControlProps
+} from "../containers/FilterControlContainer";
 
-class FilterList extends React.Component<IProps, {}> {
+class FilterControls extends React.Component<
+  IFilterControlProps & IFilterControlDispatch,
+  {}
+> {
   private handleChange = (event: any) => {
-    this.props.changeFilter(event.target.value);
+    this.props.applyFilter(event.target.value);
   };
+
   public render() {
     return (
       <FormControl>
         <FormLabel>Filter</FormLabel>
         <Grid container={true}>
           <RadioGroup
-            value={this.props.option}
+            value={this.props.filterType}
             onChange={this.handleChange}
             style={{ flexDirection: "row" }}
           >
@@ -51,4 +55,4 @@ class FilterList extends React.Component<IProps, {}> {
   }
 }
 
-export default FilterList;
+export default FilterControls;
