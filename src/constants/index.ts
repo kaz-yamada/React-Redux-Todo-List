@@ -1,7 +1,16 @@
-export const grey = "#263238";
+const ACTION_CONSTANTS = {
+  INIT_TODO_LIST: "INIT_TODO_LIST",
+  ADD_NEW_TODO: "ADD_NEW_ITEM",
+  UPDATE_TODO_TEXT: "UPDATE_ADD_ITEM_TEXT",
+  TOGGLE_TODO_STATUS: "TOGGLE_ITEM",
+  REMOVE_TODO: "REMOVE_ITEM",
+  LOAD_STORE: "LOAD_STORE",
+  APPLY_FILTER: "APPLY_FILTER",
+  TOGGLE_DRAWER: "TOGGLE_DRAWER"
+};
 
-export const filteredStyle = {
-  root: {
-    color: grey
-  }
+export default ACTION_CONSTANTS;
+
+export const STYLE_CONSTANTS = {
+  drawerWidth: 240
 };

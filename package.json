@@ -6,14 +6,14 @@
   "dependencies": {
     "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.2",
-    "@types/uuid": "^3.4.4",
+    "classnames": "^2.2.6",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dev-utils": "^7.0.1",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
-    "react-scripts": "^2.1.5",
+    "react-scripts": "^2.1.8",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
@@ -36,6 +36,7 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.7",
     "@types/jest": "^23.3.13",
     "@types/material-ui": "^0.21.5",
     "@types/node": "^10.12.21",
@@ -43,6 +44,7 @@
     "@types/react-dom": "^16.0.11",
     "@types/react-redux": "^7.0.1",
     "@types/redux-logger": "^3.0.6",
+    "@types/uuid": "^3.4.4",
     "typescript": "^3.3.1"
   },
   "eslintConfig": {

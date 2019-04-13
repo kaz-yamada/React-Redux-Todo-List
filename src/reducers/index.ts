@@ -1,5 +1,7 @@
 import logger from "redux-logger";
-import toDos from "./todoReducer";
+
+import options from "./optionsReducer";
+import toDoList from "./toDoListReducer";
 
 import { applyMiddleware, combineReducers, createStore } from "redux";
 
@@ -9,6 +11,6 @@ if (process.env.NODE_ENV !== "production") {
   middleware = applyMiddleware(logger);
 }
 
-const reducers = combineReducers({ toDos });
+const reducers = combineReducers({ toDoList, options });
 
 export const store = createStore(reducers, middleware);

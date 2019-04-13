@@ -1,15 +1,15 @@
-import AddItemForm from "../components/AddItemForm";
+import AddItemForm from "./AddItemForm";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
-import { addToDoItem } from "../actions/todos";
+import { addToDoItem } from "../../actions";
 
-interface IAddItemProps {
+export interface IAddItemContainerProps {
   addToDoItem: (value: string) => void;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): IAddItemProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): IAddItemContainerProps => ({
   addToDoItem: (value: string) => dispatch(addToDoItem(value))
 });
 

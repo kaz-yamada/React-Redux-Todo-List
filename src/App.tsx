@@ -5,60 +5,75 @@ import { Dispatch } from "redux";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
+import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 
-import Header from "./components/Header";
-import AddItemFormContainer from "./containers/AddItemFormContainer";
-import FilterControlContainer from "./containers/FilterControlContainer";
-import ToDoListContainer from "./containers/ToDoListContainer";
+import Footer from "./components/Footer";
+import HeaderContainer from "./components/Header";
+import SideDrawerContainer from "./components/SideDrawer";
+import HomeView from "./views/HomeView";
 
-import { loadStore } from "./actions/todos";
+import { loadStore } from "./actions";
+import { IStyles } from "./model";
 import { IReduxStore } from "./model/store";
 
-interface IProps {
+interface IAppDispatch {
   loadStore: (store: IReduxStore) => void;
 }
 
-class App extends React.Component<IProps, {}> {
+const styles = (theme: Theme) =>
+  createStyles({
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing.unit * 3,
+      display: "flex",
+      flexFlow: "column"
+    },
+    toolbar: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      padding: "0 8px",
+      ...theme.mixins.toolbar
+    }
+  });
+
+class App extends React.Component<IStyles & IAppDispatch, {}> {
+  /**
+   * Get saved user data from cache
+   */
   public componentDidMount() {
-    // Get saved user data from cache
     const persistedState = localStorage.getItem("reduxState")
       ? JSON.parse(localStorage.getItem("reduxState") || "")
       : {};
-    if (persistedState) {
+    if (persistedState != null) {
       this.props.loadStore(persistedState);
     }
   }
 
   public render() {
+    const { classes } = this.props;
+
     return (
-      <div className="app">
+      <Grid className="app" container={true}>
         <CssBaseline />
-        <div className="page">
-          <Header />
-          <div className="inner-page">
-            <Grid className={`main-grid`} container={true}>
-              <AddItemFormContainer />
-              <FilterControlContainer />
-              <ToDoListContainer />
-            </Grid>
-          </div>
+        <HeaderContainer />
+        <SideDrawerContainer />
+        <div className={classes.content}>
+          <div className={classes.toolbar} />
+          <HomeView />
         </div>
-        <footer>
-          Built with <a href="https://reactjs.org/">React</a> by
-          <a href="https://www.kazyamada.com">Kazuki Yamada</a>.{" "}
-          <a href="https://github.com/kaz-yamada/React-Redux-Todo-List">
-            Source
-          </a>
-        </footer>
-      </div>
+        <Footer />
+      </Grid>
     );
   }
 }
-const mapDispatchToProps = (dispatch: Dispatch): IProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): IAppDispatch => ({
   loadStore: (store: IReduxStore) => dispatch(loadStore(store))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(App);
+export default withStyles(styles, { withTheme: true })(
+  connect(
+    null,
+    mapDispatchToProps
+  )(App)
+);

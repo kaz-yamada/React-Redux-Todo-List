@@ -1,30 +1,12 @@
 import * as React from "react";
-import ToDoItemContainer from "../containers/ToDoItemContainer";
 
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 
-import {
-  IToDoListDispatch,
-  IToDoListProps
-} from "../containers/ToDoListContainer";
-import { IToDoItem } from "../model/store";
+import { IToDoListProps } from ".";
+import ToDoItem from "../ToDoItem";
 
-interface IStates {
-  toDoList: IToDoItem[];
-}
-
-class ToDoList extends React.Component<
-  IToDoListProps & IToDoListDispatch,
-  IStates
-> {
-  constructor(props: IToDoListProps & IToDoListDispatch) {
-    super(props);
-    this.state = {
-      toDoList: []
-    };
-  }
-
+class ToDoList extends React.Component<IToDoListProps, {}> {
   public render() {
     return (
       <Grid
@@ -35,7 +17,7 @@ class ToDoList extends React.Component<
         <List className="list">
           {this.props.toDoList.map((item, index) => {
             return (
-              <ToDoItemContainer
+              <ToDoItem
                 key={index}
                 id={item.id}
                 isCompleted={item.isCompleted}

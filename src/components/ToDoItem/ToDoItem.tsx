@@ -12,7 +12,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import SaveIcon from "@material-ui/icons/Save";
 
-import { IToDoItemProps } from "../containers/ToDoItemContainer";
+import { IToDoItemProps } from ".";
 
 interface IProps {
   id: string;
@@ -44,7 +44,15 @@ class ToDoItem extends React.Component<IProps & IToDoItemProps, IStates> {
 
   private updateItem = () => {
     this.setState({ isEditing: false });
-    this.props.updateItem(this.props.id, this.state.newItem);
+    if (this.state.newItem !== this.props.value) {
+      this.props.updateItem(this.props.id, this.state.newItem);
+    }
+  };
+
+  private handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      this.updateItem();
+    }
   };
 
   private removeItem = () => {
@@ -63,8 +71,8 @@ class ToDoItem extends React.Component<IProps & IToDoItemProps, IStates> {
             style={{ width: "100%" }}
             onChange={this.onTextUpdate}
             value={this.state.newItem}
+            onKeyDown={this.handleKeyPress}
           />
-
           <IconButton aria-label="Save" onClick={this.updateItem}>
             <SaveIcon />
           </IconButton>
@@ -78,12 +86,11 @@ class ToDoItem extends React.Component<IProps & IToDoItemProps, IStates> {
     const itemClass = this.props.isCompleted ? "completed" : "active";
     return (
       <div>
-        <ListItem
-          className={itemClass}
-          onClick={this.toggleStatus}
-          button={true}
-        >
-          <Checkbox checked={this.props.isCompleted} />
+        <ListItem className={itemClass}>
+          <Checkbox
+            onClick={this.toggleStatus}
+            checked={this.props.isCompleted}
+          />
           <ListItemText primary={this.props.value} />
           <ListItemSecondaryAction>
             <IconButton aria-label="Edit" onClick={this.toggleEdit}>

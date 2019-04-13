@@ -1,8 +1,8 @@
-import ToDoItem from "../components/ToDoItem";
+import ToDoItem from "./ToDoItem";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { removeItem, toggleItem, updateItem } from "../actions/todos";
+import { removeItem, toggleItem, updateItem } from "../../actions";
 
 export interface IToDoItemProps {
   toggleItem: (id: string) => void;
