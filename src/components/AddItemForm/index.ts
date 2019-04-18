@@ -3,14 +3,15 @@ import AddItemForm from "./AddItemForm";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
-import { addToDoItem } from "../../actions";
+import { addTaskItem } from "../../actions";
 
 export interface IAddItemContainerProps {
-  addToDoItem: (value: string) => void;
+  addTaskItem: (taskName: string, hasDueDate: boolean, dueDate: Date) => void;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): IAddItemContainerProps => ({
-  addToDoItem: (value: string) => dispatch(addToDoItem(value))
+  addTaskItem: (taskName: string, hasDueDate: boolean, dueDate: Date) =>
+    dispatch(addTaskItem(taskName, hasDueDate, dueDate))
 });
 
 const AddItemContainer = connect(

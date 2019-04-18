@@ -1,8 +1,10 @@
 import * as React from "react";
 
+import classNames from "classnames";
+
 import AddItemFormContainer from "../components/AddItemForm";
 import FilterControlContainer from "../components/FilterMenu";
-import ToDoListContainer from "../components/ToDoList";
+import ToDoListContainer from "../components/TaskList";
 
 import {
   createStyles,
@@ -12,6 +14,7 @@ import {
 } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
+import Collapse from "@material-ui/core/Collapse";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -24,13 +27,21 @@ const styles = (theme: Theme) =>
       flex: 1
     },
     button: {
-      margin: theme.spacing.unit
+      margin: theme.spacing.unit,
+      width: 200
     },
     rightIcon: {
+      transition: "transform 0.5s",
       marginLeft: theme.spacing.unit
     },
     filler: {
       flex: 1
+    },
+    formVisible: {
+      transform: "rotate(45deg)"
+    },
+    collapse: {
+      width: "100%"
     }
   });
 
@@ -58,26 +69,35 @@ class HomeView extends React.Component<IProps, IState> {
 
   public render() {
     const { classes } = this.props;
+    const isFormVisible = this.state.showAddNewItem;
+
     return (
       <Paper className={classes.root}>
         <Grid container={true} alignItems="stretch">
           <Grid item={true} xs={12}>
             <Toolbar className={classes.filler}>
-              <Button variant="contained" onClick={this.handelAddButton}>
-                Add New Item
-                <AddCircle className={classes.rightIcon} />
+              <Button
+                variant="contained"
+                onClick={this.handelAddButton}
+                color={"primary"}
+                className={classes.button}
+              >
+                {isFormVisible ? "Close" : "Add New Item"}
+                <AddCircle
+                  className={classNames(classes.rightIcon, {
+                    [classes.formVisible]: isFormVisible
+                  })}
+                />
               </Button>
               <div className={classes.filler} />
               <FilterControlContainer />
             </Toolbar>
           </Grid>
-          <Grid item={true} xs={12}>
+          <Divider style={{ width: "100%" }} />
+          <Collapse in={isFormVisible} className={classes.collapse}>
+            <AddItemFormContainer />
             <Divider />
-          </Grid>
-          {this.state.showAddNewItem ? <AddItemFormContainer /> : ""}
-          <Grid item={true} xs={12}>
-            <Divider />
-          </Grid>
+          </Collapse>
           <ToDoListContainer />
         </Grid>
       </Paper>

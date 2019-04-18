@@ -27,11 +27,9 @@ const styles = (theme: Theme) =>
       margin: theme.spacing.unit
     }
   });
-class FilterMenu extends React.Component<
-  IFilterContainerProps & IProps,
-  IState
-> {
-  constructor(props: IFilterContainerProps & IProps) {
+
+class FilterMenu extends React.Component<IFilterContainerProps, IState> {
+  constructor(props: IFilterContainerProps) {
     super(props);
     this.state = {
       anchorEl: null,
@@ -61,7 +59,7 @@ class FilterMenu extends React.Component<
       <div>
         <IconButton
           onClick={this.handleOpenMenu}
-          className={this.props.classes.button}
+          className="filter-button"
           aria-label="Filter"
           aria-owns={this.state.anchorEl ? "filter-menu" : undefined}
           aria-haspopup="true"
@@ -93,4 +91,4 @@ class FilterMenu extends React.Component<
   }
 }
 
-export default withStyles(styles)(FilterMenu);
+export default FilterMenu;

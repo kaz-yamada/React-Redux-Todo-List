@@ -9,6 +9,8 @@ import { IStyles } from "../model";
 const styles = (theme: Theme) =>
   createStyles({
     footer: {
+      position: "fixed",
+      background: "white",
       bottom: 0,
       textAlign: "center",
       width: "100%",
@@ -19,7 +21,7 @@ const styles = (theme: Theme) =>
 class Footer extends React.Component<IStyles, {}> {
   public render() {
     return (
-      <Grid className={this.props.classes.footer} item={true} xs={12}>
+      <div className={this.props.classes.footer}>
         <Typography variant="body1">
           Built with <a href="https://reactjs.org/">React</a> by{" "}
           <a href="https://www.kazyamada.com">Kazuki Yamada</a>.{" "}
@@ -27,7 +29,7 @@ class Footer extends React.Component<IStyles, {}> {
             Source
           </a>
         </Typography>
-      </Grid>
+      </div>
     );
   }
 }

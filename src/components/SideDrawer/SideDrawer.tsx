@@ -35,7 +35,6 @@ const styles = (theme: Theme) =>
     },
     drawerOpen: {
       width: drawerWidth,
-      overflowX: "hidden",
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen
@@ -47,7 +46,10 @@ const styles = (theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen
       }),
       overflowX: "hidden",
-      width: theme.spacing.unit * 7 + 1
+      width: theme.spacing.unit * 7 + 1,
+      [theme.breakpoints.up("sm")]: {
+        width: theme.spacing.unit * 9 + 1
+      }
     },
     toolbar: {
       display: "flex",
@@ -84,13 +86,13 @@ class SideDrawer extends React.Component<
         open={isDrawerOpen}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={this.handleDrawerClose}>
+          {/* <IconButton onClick={this.handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
               <ChevronLeftIcon />
             )}
-          </IconButton>
+          </IconButton> */}
         </div>
         <Divider />
         <List>

@@ -9,31 +9,33 @@ export default function toDoList(
   action: IAction
 ): ITodoList {
   switch (action.type) {
-    case C.ADD_NEW_TODO: {
+    case C.ADD_NEW_TASK: {
       const newId = uuid();
       return {
         ...state,
         [newId]: {
           id: newId,
-          value: action.payload,
+          value: action.payload.taskName,
           isCompleted: false,
-          dateAdded: new Date()
+          hasDueDate: action.payload.hasDueDate,
+          dueDate: action.payload.dueDate.toISOString(),
+          dateAdded: new Date().toISOString()
         }
       };
     }
-    case C.REMOVE_TODO: {
+    case C.REMOVE_TASK: {
       if (state[action.payload]) {
         delete state[action.payload];
       }
 
       return { ...state };
     }
-    case C.TOGGLE_TODO_STATUS: {
+    case C.TOGGLE_TASK_STATUS: {
       state[action.payload].isCompleted = !state[action.payload].isCompleted;
 
       return { ...state };
     }
-    case C.UPDATE_TODO_TEXT: {
+    case C.UPDATE_TASK_TEXT: {
       state[action.payload.id].value = action.payload.newValue;
 
       return { ...state };
@@ -43,7 +45,7 @@ export default function toDoList(
         return { ...action.payload.toDoList };
       }
     }
-    case C.INIT_TODO_LIST: {
+    case C.INIT_TASK_LIST: {
       return { ...state };
     }
     default: {

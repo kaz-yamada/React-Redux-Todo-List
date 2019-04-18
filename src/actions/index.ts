@@ -2,37 +2,52 @@ import { IAction, IReduxStore } from "../model/store";
 
 import C from "../constants";
 
-export const initToDoList = () => {
+export const initTaskList = () => {
   return {
-    type: C.INIT_TODO_LIST,
+    type: C.INIT_TASK_LIST,
     payload: ""
   };
 };
 
-export const addToDoItem = (value: string): IAction => {
+export const addTaskItem = (
+  task: string,
+  hasTaskDate: boolean,
+  taskDate: Date
+): IAction => {
   return {
-    type: C.ADD_NEW_TODO,
-    payload: value
+    type: C.ADD_NEW_TASK,
+    payload: {
+      taskName: task,
+      hasDueDate: hasTaskDate,
+      dueDate: taskDate
+    }
   };
 };
 
-export const toggleItem = (id: string): IAction => {
+export const toggleTask = (id: string): IAction => {
   return {
-    type: C.TOGGLE_TODO_STATUS,
+    type: C.TOGGLE_TASK_STATUS,
     payload: id
   };
 };
 
-export const removeItem = (id: string): IAction => {
+export const removeTask = (id: string): IAction => {
   return {
-    type: C.REMOVE_TODO,
+    type: C.REMOVE_TASK,
     payload: id
   };
 };
 
-export const updateItem = (itemId: string, newText: string): IAction => {
+export const updateDueDate = (itemId: string, newDate: Date): IAction => {
   return {
-    type: C.UPDATE_TODO_TEXT,
+    type: C.UPDATE_TASK_DATE,
+    payload: { id: itemId, newValue: newDate }
+  };
+};
+
+export const updateTask = (itemId: string, newText: string): IAction => {
+  return {
+    type: C.UPDATE_TASK_TEXT,
     payload: { id: itemId, newValue: newText }
   };
 };

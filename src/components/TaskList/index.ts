@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
-import { initToDoList } from "../../actions";
-import ToDoList from "./ToDoList";
+import { initTaskList } from "../../actions";
+import TaskList from "./TaskList";
 
 import { IReduxStore, IToDoItem } from "../../model/store";
 
@@ -33,12 +33,12 @@ const mapStateToProps = (store: IReduxStore): IToDoListProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  initTodoList: () => dispatch(initToDoList())
+  initTaskList: () => dispatch(initTaskList())
 });
 
-const ToDoListContainer = connect(
+const TaskListContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ToDoList);
+)(TaskList);
 
-export default ToDoListContainer;
+export default TaskListContainer;

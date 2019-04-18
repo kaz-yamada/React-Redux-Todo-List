@@ -1,9 +1,30 @@
 body,
 html {
-  height: 100%;
+  min-height: 100%;
 }
 
 #root {
   height: 100%;
   width: 100%;
+}
+
+.filter-button {
+  margin-right: 12px;
+}
+
+.task-list {
+  .icon {
+    width: 1%;
+    padding-right: 0;
+  }
+  .edit-row {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

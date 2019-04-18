@@ -1,6 +1,8 @@
 import * as React from "react";
 
 import { createStyles, Theme, withStyles } from "@material-ui/core";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
@@ -8,21 +10,34 @@ import AddIcon from "@material-ui/icons/AddCircle";
 
 import { IAddItemContainerProps } from ".";
 import { IStyles } from "../../model";
+import { formatDate } from "../../utils";
+
+interface IState {
+  newItemText: string;
+  hasDueDate: boolean;
+  dueDate: Date;
+}
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      display: "flex"
+      display: "flex",
+      padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`
     },
-    input: {
-      marginLeft: 8,
-      flex: 1
+    taskInput: {
+      width: "100%"
+    },
+    centerItem: {
+      display: "flex",
+      justifyContent: "center"
     }
   });
 
-interface IState {
-  newItemText: string;
-}
+const defualtState: IState = {
+  newItemText: "",
+  hasDueDate: false,
+  dueDate: new Date()
+};
 
 class AddItemForm extends React.Component<
   IAddItemContainerProps & IStyles,
@@ -31,15 +46,29 @@ class AddItemForm extends React.Component<
   constructor(props: IAddItemContainerProps & IStyles) {
     super(props);
 
-    this.state = {
-      newItemText: ""
-    };
+    this.state = { ...defualtState };
   }
 
+  private checkForm = () => {
+    if (!this.state.newItemText) {
+      return false;
+    }
+    if (this.state.hasDueDate && this.state.dueDate === undefined) {
+      return false;
+    }
+
+    return true;
+  };
+
   private handleSubmit = () => {
-    if (this.state.newItemText) {
-      this.props.addToDoItem(this.state.newItemText);
-      this.setState({ newItemText: "" });
+    if (this.checkForm()) {
+      this.props.addTaskItem(
+        this.state.newItemText,
+        this.state.hasDueDate,
+        this.state.dueDate
+      );
+
+      this.setState({ ...defualtState });
     }
   };
 
@@ -53,19 +82,58 @@ class AddItemForm extends React.Component<
     }
   };
 
+  private toggleDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ hasDueDate: event.target.checked });
+  };
+
+  private handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ dueDate: new Date(event.target.value) });
+  };
+
   public render() {
+    const { classes } = this.props;
+
     return (
-      <Grid item={true} xs={12} className={this.props.classes.root}>
-        <TextField
-          label="Enter New Item"
-          className={this.props.classes.input}
-          onChange={this.handleTextUpdate}
-          onKeyPress={this.handleKeyPress}
-          value={this.state.newItemText}
-        />
-        <IconButton aria-label="Add" onClick={this.handleSubmit}>
-          <AddIcon />
-        </IconButton>
+      <Grid item={true} xs={12} className={classes.root}>
+        <Grid container={true} alignItems="center">
+          <Grid item={true} xs={true}>
+            <TextField
+              label="Enter New Item"
+              className={classes.taskInput}
+              onChange={this.handleTextUpdate}
+              onKeyPress={this.handleKeyPress}
+              value={this.state.newItemText}
+            />
+          </Grid>
+          <Grid className={classes.centerItem} item={true} xs={2}>
+            <FormControlLabel
+              value="top"
+              control={
+                <Checkbox
+                  onChange={this.toggleDate}
+                  checked={this.state.hasDueDate}
+                />
+              }
+              label="Due Date?"
+              labelPlacement="top"
+            />
+          </Grid>
+          <Grid item={true} xs={2}>
+            <TextField
+              label="Due Date"
+              type="date"
+              disabled={!this.state.hasDueDate}
+              onChange={this.handleDateChange}
+              defaultValue={formatDate(this.state.dueDate)}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid>
+          <Grid item={true} xs={1} className={classes.centerItem}>
+            <IconButton aria-label="Add" onClick={this.handleSubmit}>
+              <AddIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
       </Grid>
     );
   }

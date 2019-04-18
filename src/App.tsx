@@ -22,11 +22,11 @@ interface IAppDispatch {
 
 const styles = (theme: Theme) =>
   createStyles({
+    root: { display: "flex" },
     content: {
       flexGrow: 1,
       padding: theme.spacing.unit * 3,
-      display: "flex",
-      flexFlow: "column"
+      paddingBottom: theme.spacing.unit * 6
     },
     toolbar: {
       display: "flex",
@@ -54,7 +54,7 @@ class App extends React.Component<IStyles & IAppDispatch, {}> {
     const { classes } = this.props;
 
     return (
-      <Grid className="app" container={true}>
+      <div className={classes.root}>
         <CssBaseline />
         <HeaderContainer />
         <SideDrawerContainer />
@@ -63,7 +63,7 @@ class App extends React.Component<IStyles & IAppDispatch, {}> {
           <HomeView />
         </div>
         <Footer />
-      </Grid>
+      </div>
     );
   }
 }

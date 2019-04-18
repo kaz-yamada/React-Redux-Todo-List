@@ -11,8 +11,9 @@ export interface IToDoItem {
   id: string;
   value: string;
   isCompleted: boolean;
-  dateAdded: Date;
-  dueDate?: Date;
+  dateAdded: string;
+  hasDueDate: boolean;
+  dueDate?: string;
 }
 
 export interface IAction {

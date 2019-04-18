@@ -17,7 +17,7 @@ class FilterMenuItem extends React.Component<IProps, {}> {
     const { value, label } = this.props;
 
     return (
-      <MenuItem value={value} onClick={this.handleClick}>
+      <MenuItem value={value} onClick={this.handleClick} >
         {label}
       </MenuItem>
     );

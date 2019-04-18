@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import classNames from "classnames";
+
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
@@ -8,7 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { IHeaderContainerProps } from ".";
+import { STYLE_CONSTANTS } from "../../constants";
 import { IStyles } from "../../model";
+
+const drawerWidth = STYLE_CONSTANTS.drawerWidth;
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -19,6 +24,14 @@ const styles = (theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen
       })
     },
+    // appBarShift: {
+    //   marginLeft: drawerWidth,
+    //   width: `calc(100% - ${drawerWidth}px)`,
+    //   transition: theme.transitions.create(["width", "margin"], {
+    //     easing: theme.transitions.easing.sharp,
+    //     duration: theme.transitions.duration.enteringScreen
+    //   })
+    // },
     menuButton: {
       marginLeft: 12,
       marginRight: 36
@@ -35,23 +48,21 @@ class Header extends React.Component<IProps, {}> {
     const { classes } = this.props;
 
     return (
-      <div className="header">
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar disableGutters={!open}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit">
-              To Do List
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar position="fixed" className={classNames(classes.appBar)}>
+        <Toolbar disableGutters={!open}>
+          <IconButton
+            color="inherit"
+            aria-label="Open drawer"
+            onClick={this.handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            To Do List
+          </Typography>
+        </Toolbar>
+      </AppBar>
     );
   }
 }
