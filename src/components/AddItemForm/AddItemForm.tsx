@@ -95,8 +95,8 @@ class AddItemForm extends React.Component<
 
     return (
       <Grid item={true} xs={12} className={classes.root}>
-        <Grid container={true} alignItems="center">
-          <Grid item={true} xs={true}>
+        <Grid container={true} alignItems="center" spacing={16}>
+          <Grid item={true} md={true} xs={12}>
             <TextField
               label="Enter New Item"
               className={classes.taskInput}
@@ -105,7 +105,7 @@ class AddItemForm extends React.Component<
               value={this.state.newItemText}
             />
           </Grid>
-          <Grid className={classes.centerItem} item={true} xs={2}>
+          <Grid className={classes.centerItem} item={true} md={2} xs={4}>
             <FormControlLabel
               value="top"
               control={
@@ -118,7 +118,7 @@ class AddItemForm extends React.Component<
               labelPlacement="top"
             />
           </Grid>
-          <Grid item={true} xs={2}>
+          <Grid item={true} md={2} xs={6}>
             <TextField
               label="Due Date"
               type="date"
@@ -128,7 +128,7 @@ class AddItemForm extends React.Component<
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item={true} xs={1} className={classes.centerItem}>
+          <Grid item={true} md={1} xs={1} className={classes.centerItem}>
             <IconButton aria-label="Add" onClick={this.handleSubmit}>
               <AddIcon />
             </IconButton>

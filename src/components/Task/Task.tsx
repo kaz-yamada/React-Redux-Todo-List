@@ -90,8 +90,8 @@ class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
     return (
       <TableRow>
         <TableCell colSpan={5}>
-          <Grid container={true} alignItems="center" className="edit-row">
-            <Grid item={true} sm={7}>
+          <Grid container={true} spacing={16} alignItems="center" className="edit-row">
+            <Grid item={true} md={7} xs={12}>
               <TextField
                 style={{ width: "100%" }}
                 label="Task Name"
@@ -100,7 +100,7 @@ class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
                 onKeyDown={this.handleKeyPress}
               />
             </Grid>
-            <Grid item={true} sm={2} className="flex-center">
+            <Grid item={true} md={2} xs={4} className="flex-center">
               <FormControlLabel
                 value="top"
                 control={
@@ -113,7 +113,7 @@ class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
                 labelPlacement="top"
               />
             </Grid>
-            <Grid item={true} sm={2} className="flex-center">
+            <Grid item={true} md={2} xs={4} className="flex-center">
               <TextField
                 label="Due Date"
                 type="date"
@@ -122,7 +122,7 @@ class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
                 onChange={this.handleDateChange}
               />
             </Grid>
-            <Grid item={true} sm={1} className="flex-center">
+            <Grid item={true} sm={1} xs={4} className="flex-center">
               <IconButton aria-label="Save" onClick={this.updateTask}>
                 <SaveIcon />
               </IconButton>

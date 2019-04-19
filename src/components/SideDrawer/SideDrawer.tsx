@@ -46,9 +46,9 @@ const styles = (theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen
       }),
       overflowX: "hidden",
-      width: theme.spacing.unit * 7 + 1,
+      width: 0,
       [theme.breakpoints.up("sm")]: {
-        width: theme.spacing.unit * 9 + 1
+        width: theme.spacing.unit * 7 + 1
       }
     },
     toolbar: {
@@ -85,15 +85,7 @@ class SideDrawer extends React.Component<
         }}
         open={isDrawerOpen}
       >
-        <div className={classes.toolbar}>
-          {/* <IconButton onClick={this.handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton> */}
-        </div>
+        <div className={classes.toolbar} />
         <Divider />
         <List>
           {MAIN_MENU.map(menuItem => {
