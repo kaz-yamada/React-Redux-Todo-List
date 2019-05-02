@@ -1,12 +1,5 @@
 import * as React from "react";
 
-import {
-  createStyles,
-  Theme,
-  withStyles,
-  WithStyles
-} from "@material-ui/core/styles";
-
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import { FilterList } from "@material-ui/icons";
@@ -15,18 +8,10 @@ import { IFilterContainerProps } from ".";
 import { FILTER_MENU } from "../../constants/menu";
 import FilterMenuItem from "./FilterMenuItem";
 
-interface IProps extends WithStyles<typeof styles> {}
 interface IState {
   showFilterMenu: boolean;
   anchorEl: null | HTMLElement;
 }
-
-const styles = (theme: Theme) =>
-  createStyles({
-    button: {
-      margin: theme.spacing.unit
-    }
-  });
 
 class FilterMenu extends React.Component<IFilterContainerProps, IState> {
   constructor(props: IFilterContainerProps) {

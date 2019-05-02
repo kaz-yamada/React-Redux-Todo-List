@@ -3,8 +3,8 @@ import { CalendarToday, Home } from "@material-ui/icons";
 import { IMainMenuItem, IMenuItem } from "../model";
 
 const MAIN_MENU: IMainMenuItem[] = [
-  { name: "Home", icon: Home },
-  { name: "Calendar", icon: CalendarToday }
+  { name: "Home", icon: Home, link: "/" },
+  { name: "Calendar", icon: CalendarToday, link: "calendar" }
 ];
 export default MAIN_MENU;
 

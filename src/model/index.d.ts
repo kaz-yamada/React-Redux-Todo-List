@@ -12,4 +12,5 @@ export interface IMenuItem {
 export interface IMainMenuItem {
   name: string;
   icon: ComponentType;
+  link: string;
 }

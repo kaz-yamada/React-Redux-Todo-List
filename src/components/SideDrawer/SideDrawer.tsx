@@ -1,23 +1,21 @@
 import * as React from "react";
 
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-
 import { ISideDrawerContainerProps } from ".";
 import { STYLE_CONSTANTS } from "../../constants";
 
 import MAIN_MENU from "../../constants/menu";
+import ListItemLink from "./ListItemLink";
 
 const drawerWidth = STYLE_CONSTANTS.drawerWidth;
 
@@ -64,10 +62,6 @@ class SideDrawer extends React.Component<
   ISideDrawerContainerProps & IProps,
   {}
 > {
-  private handleDrawerClose = () => {
-    this.props.toggleDrawer();
-  };
-
   public render() {
     const { classes, theme, isDrawerOpen } = this.props;
     return (
@@ -90,12 +84,18 @@ class SideDrawer extends React.Component<
         <List>
           {MAIN_MENU.map(menuItem => {
             return (
-              <ListItem button={true} key={menuItem.name}>
-                <ListItemIcon>
-                  <menuItem.icon />
-                </ListItemIcon>
-                <ListItemText primary={menuItem.name} />
-              </ListItem>
+              <ListItemLink
+                key={menuItem.name}
+                name={menuItem.name}
+                icon={<menuItem.icon />}
+                to={menuItem.link}
+              />
+              //   <ListItem button={true} key={menuItem.name}>
+              //     <ListItemIcon>
+              //       <menuItem.icon />
+              //     </ListItemIcon>
+              //     <ListItemText primary={menuItem.name} />
+              //   </ListItem>
             );
           })}
         </List>

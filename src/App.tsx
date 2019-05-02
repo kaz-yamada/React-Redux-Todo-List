@@ -1,15 +1,16 @@
 import * as React from "react";
+import { Route, Switch } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 
 import Footer from "./components/Footer";
 import HeaderContainer from "./components/Header";
 import SideDrawerContainer from "./components/SideDrawer";
+import CalendarView from "./views/CalendarView";
 import HomeView from "./views/HomeView";
 
 import { loadStore } from "./actions";
@@ -60,7 +61,11 @@ class App extends React.Component<IStyles & IAppDispatch, {}> {
         <SideDrawerContainer />
         <div className={classes.content}>
           <div className={classes.toolbar} />
-          <HomeView />
+          <Switch>
+            <Route exact={true} path="/" component={HomeView} />
+            <Route path="/calendar" component={CalendarView} />
+          </Switch>
+          {/* <HomeView /> */}
         </div>
         <Footer />
       </div>
