@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import AddItemFormContainer from "../components/AddItemForm";
 import FilterControlContainer from "../components/FilterMenu";
-import ToDoListContainer from "../components/TaskList";
+import TaskListContainer from "../components/TaskList";
 
 import {
   createStyles,
@@ -98,7 +98,9 @@ class HomeView extends React.Component<IProps, IState> {
             <AddItemFormContainer />
             <Divider />
           </Collapse>
-          <ToDoListContainer />
+          <Grid item={true} xs={12} className={`list-container`}>
+            <TaskListContainer />
+          </Grid>
         </Grid>
       </Paper>
     );

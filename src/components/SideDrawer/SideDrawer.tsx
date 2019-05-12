@@ -1,14 +1,10 @@
 import * as React from "react";
 
 import classNames from "classnames";
-import { Link } from "react-router-dom";
 
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 
 import { ISideDrawerContainerProps } from ".";
@@ -63,7 +59,7 @@ class SideDrawer extends React.Component<
   {}
 > {
   public render() {
-    const { classes, theme, isDrawerOpen } = this.props;
+    const { classes, isDrawerOpen } = this.props;
     return (
       <Drawer
         variant="permanent"
@@ -90,12 +86,6 @@ class SideDrawer extends React.Component<
                 icon={<menuItem.icon />}
                 to={menuItem.link}
               />
-              //   <ListItem button={true} key={menuItem.name}>
-              //     <ListItemIcon>
-              //       <menuItem.icon />
-              //     </ListItemIcon>
-              //     <ListItemText primary={menuItem.name} />
-              //   </ListItem>
             );
           })}
         </List>

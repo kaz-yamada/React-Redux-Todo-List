@@ -23,11 +23,16 @@ interface IAppDispatch {
 
 const styles = (theme: Theme) =>
   createStyles({
-    root: { display: "flex" },
+    root: {
+      display: "flex",
+      height: "100%"
+    },
     content: {
       flexGrow: 1,
       padding: theme.spacing.unit * 3,
-      paddingBottom: theme.spacing.unit * 6
+      paddingBottom: theme.spacing.unit * 6,
+      display: "flex",
+      flexFlow: "column"
     },
     toolbar: {
       display: "flex",

@@ -45,6 +45,7 @@ export default function toDoList(
         return { ...action.payload.toDoList };
       }
     }
+    // eslint-disable-next-line
     case C.INIT_TASK_LIST: {
       return { ...state };
     }
