@@ -6,19 +6,21 @@ import { Event } from "react-big-calendar";
 import { IReduxStore } from "../../model/store";
 
 export interface ICalendarProps {
-  // toDoList: IToDoItem[];
   eventsList: Event[];
 }
 
 const mapStateToProps = (store: IReduxStore): ICalendarProps => {
-  const list = Object.keys(store.toDoList).map(key => {
-    return {
-      title: store.toDoList[key].value,
-      start: store.toDoList[key].dueDate,
-      end: store.toDoList[key].dueDate,
-      allDay: false,
-      resource: store.toDoList[key].id
-    };
+  const list: Event[] = [];
+  Object.keys(store.toDoList).forEach(key => {
+    if (store.toDoList[key].hasDueDate) {
+      list.push({
+        title: store.toDoList[key].value,
+        start: store.toDoList[key].dueDate,
+        end: store.toDoList[key].dueDate,
+        allDay: false,
+        resource: store.toDoList[key].id
+      });
+    }
   });
 
   return {

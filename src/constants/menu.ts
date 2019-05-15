@@ -4,7 +4,7 @@ import { IMainMenuItem, IMenuItem } from "../model";
 
 const MAIN_MENU: IMainMenuItem[] = [
   { name: "Home", icon: Home, link: "/" },
-  { name: "Calendar", icon: CalendarToday, link: "calendar" }
+  { name: "Calendar", icon: CalendarToday, link: "/calendar" }
 ];
 export default MAIN_MENU;
 

@@ -23,5 +23,5 @@ export interface IAction {
 
 export interface IOptions {
   filterType: string;
-  isDrawerOpen: boolean;
+  isDrawerOpen: boolean;  
 }

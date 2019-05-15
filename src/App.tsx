@@ -23,10 +23,6 @@ interface IAppDispatch {
 
 const styles = (theme: Theme) =>
   createStyles({
-    root: {
-      display: "flex",
-      height: "100%"
-    },
     content: {
       flexGrow: 1,
       padding: theme.spacing.unit * 3,
@@ -58,9 +54,8 @@ class App extends React.Component<IStyles & IAppDispatch, {}> {
 
   public render() {
     const { classes } = this.props;
-
     return (
-      <div className={classes.root}>
+      <div className="app-root">
         <CssBaseline />
         <HeaderContainer />
         <SideDrawerContainer />
@@ -68,9 +63,8 @@ class App extends React.Component<IStyles & IAppDispatch, {}> {
           <div className={classes.toolbar} />
           <Switch>
             <Route exact={true} path="/" component={HomeView} />
-            <Route path="/calendar" component={CalendarView} />
+            <Route path={`/calendar/:date?`} component={CalendarView} />
           </Switch>
-          {/* <HomeView /> */}
         </div>
         <Footer />
       </div>

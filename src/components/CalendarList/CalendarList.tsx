@@ -3,28 +3,25 @@ import * as React from "react";
 import moment from "moment";
 
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 
 import { ICalendarProps } from ".";
+import CalendarListItem from "./CalendarListItem";
 
-class ToDoCalendar extends React.Component<ICalendarProps, {}> {
+class CalendarList extends React.Component<ICalendarProps, {}> {
   public render() {
     return (
       <List>
-        {this.props.tasksList.map(task => {
-          return (
-            <ListItem key={task.id}>
-              <ListItemText
-                primary={task.value}
-                secondary={moment(task.dueDate).format("DD-MMM-YYYY")}
-              />
-            </ListItem>
-          );
-        })}
+        {this.props.tasksList.map(task => (
+          <CalendarListItem
+            key={task.id}
+            id={task.id}
+            title={task.value}
+            date={moment(task.dueDate).format("DD-MMM-YYYY")}
+          />
+        ))}
       </List>
     );
   }
 }
 
-export default ToDoCalendar;
+export default CalendarList;

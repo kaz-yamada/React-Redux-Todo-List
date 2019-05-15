@@ -7,9 +7,23 @@ import { ICalendarProps } from ".";
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
-class ToDoCalendar extends React.Component<ICalendarProps, {}> {
+interface IProps {
+  selectedDate?: Date;
+}
+
+class ToDoCalendar extends React.Component<ICalendarProps & IProps, {}> {
+  private onNavigate = () => {};
+
   public render() {
-    return <BigCalendar localizer={localizer} events={this.props.eventsList} />;
+    return (
+      <BigCalendar
+        localizer={localizer}
+        events={this.props.eventsList}
+        defaultDate={new Date()}
+        onNavigate={this.onNavigate}
+        date={this.props.selectedDate}
+      />
+    );
   }
 }
 
