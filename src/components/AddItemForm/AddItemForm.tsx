@@ -23,13 +23,6 @@ const styles = (theme: Theme) =>
     root: {
       display: "flex",
       padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`
-    },
-    taskInput: {
-      width: "100%"
-    },
-    centerItem: {
-      display: "flex",
-      justifyContent: "center"
     }
   });
 
@@ -99,7 +92,7 @@ class AddItemForm extends React.Component<
           <Grid item={true} md={true} xs={12}>
             <TextField
               label="Enter New Item"
-              className={classes.taskInput}
+              className={"add-task-input"}
               onChange={this.handleTextUpdate}
               onKeyPress={this.handleKeyPress}
               value={this.state.newItemText}
@@ -128,7 +121,7 @@ class AddItemForm extends React.Component<
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
-          <Grid item={true} md={1} xs={1} className={classes.centerItem}>
+          <Grid item={true} md={1} xs={1} className="center-horizontal">
             <IconButton aria-label="Add" onClick={this.handleSubmit}>
               <AddIcon />
             </IconButton>

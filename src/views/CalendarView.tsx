@@ -48,14 +48,11 @@ class CalendarView extends React.Component<IProps, IState> {
   }
 
   public render() {
-    console.log(this.props.match.params.date);
-    const date = this.state.selectedDate;
-
     return (
       <Paper style={{ flex: 1 }}>
         <Grid container={true} style={{ height: "100%" }}>
           <Grid item={true} md={true}>
-            <CalendarContainer selectedDate={date} />
+            <CalendarContainer selectedDate={this.state.selectedDate} />
           </Grid>
           <Grid item={true} md={4}>
             <CalenarListContainer />
