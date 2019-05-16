@@ -14,8 +14,8 @@ class ToDoList extends React.Component<IToDoListProps, {}> {
     return (
       <Table className="task-list">
         <TableHead>
-          <TableRow>
-            <TableCell align="center">Status</TableCell>
+          <TableRow className="task-list-header">
+            <TableCell  align="center">Status</TableCell>
             <TableCell>Task Name</TableCell>
             <TableCell>Due Date</TableCell>
             <TableCell colSpan={2} />
