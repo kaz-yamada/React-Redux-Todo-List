@@ -20,7 +20,7 @@ interface IProps {
   isCompleted: boolean;
   value: string;
   hasDueDate: boolean;
-  dueDate?: string;
+  dueDate?: Date;
 }
 
 interface IStates {
@@ -30,7 +30,7 @@ interface IStates {
   hasDueDate: boolean;
 }
 
-class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
+class TaskItem extends React.Component<IProps & ITaskProps, IStates> {
   constructor(props: IProps & ITaskProps) {
     super(props);
 
@@ -60,7 +60,12 @@ class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
 
   private updateTask = () => {
     this.setState({ isEditing: false }, () => {
-      this.props.updateTask(this.props.id, this.state.newItem);
+      this.props.updateTask(
+        this.props.id,
+        this.state.newItem,
+        this.state.hasDueDate,
+        this.state.newDate
+      );
     });
   };
 
@@ -90,7 +95,12 @@ class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
     return (
       <TableRow>
         <TableCell colSpan={5}>
-          <Grid container={true} spacing={16} alignItems="center" className="edit-row">
+          <Grid
+            container={true}
+            spacing={6}
+            alignItems="center"
+            className="edit-row"
+          >
             <Grid item={true} md={7} xs={12}>
               <TextField
                 style={{ width: "100%" }}
@@ -168,4 +178,4 @@ class ToDoItem extends React.Component<IProps & ITaskProps, IStates> {
   }
 }
 
-export default ToDoItem;
+export default TaskItem;

@@ -13,21 +13,14 @@ interface IProps {
   replace?: boolean;
 }
 
-class ListItemLink extends React.Component<IProps, {}> {
-  private renderLink = (itemProps: any) => (
-    <Link to={this.props.to} {...itemProps} />
+function ListItemLink(props: IProps) {
+  const { icon, name, to } = props;
+  return (
+    <ListItem button={true} component={Link} to={to}>
+      <ListItemIcon>{icon}</ListItemIcon>
+      <ListItemText primary={name} />
+    </ListItem>
   );
-
-  public render() {
-    return (
-      <li>
-        <ListItem button={true} component={this.renderLink as any}>
-          <ListItemIcon>{this.props.icon}</ListItemIcon>
-          <ListItemText primary={this.props.name} />
-        </ListItem>
-      </li>
-    );
-  }
 }
 
 export default ListItemLink;

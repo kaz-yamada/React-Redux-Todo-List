@@ -13,7 +13,7 @@ const styles = (theme: Theme) =>
       bottom: 0,
       textAlign: "center",
       width: "100%",
-      paddingBottom: theme.spacing.unit * 2
+      paddingBottom: theme.spacing(1) * 2
     }
   });
 

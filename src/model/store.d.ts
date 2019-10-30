@@ -13,7 +13,7 @@ export interface IToDoItem {
   isCompleted: boolean;
   dateAdded: string;
   hasDueDate: boolean;
-  dueDate?: string;
+  dueDate?: Date;
 }
 
 export interface IAction {

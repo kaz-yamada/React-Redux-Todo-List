@@ -1,24 +1,26 @@
 import { connect } from "react-redux";
 
+import { EventInput } from "@fullcalendar/core";
+
 import Calendar from "./Calendar";
 
-import { Event } from "react-big-calendar";
 import { IReduxStore } from "../../model/store";
 
-export interface ICalendarProps {
-  eventsList: Event[];
+export interface ICalendarContainerProps {
+  eventsList: EventInput[];
 }
 
-const mapStateToProps = (store: IReduxStore): ICalendarProps => {
-  const list: Event[] = [];
+const mapStateToProps = (store: IReduxStore): ICalendarContainerProps => {
+  const list: EventInput[] = [];
   Object.keys(store.toDoList).forEach(key => {
+    const { id, value } = store.toDoList[key];
     if (store.toDoList[key].hasDueDate) {
+      const { dueDate } = store.toDoList[key];
+
       list.push({
-        title: store.toDoList[key].value,
-        start: store.toDoList[key].dueDate,
-        end: store.toDoList[key].dueDate,
-        allDay: false,
-        resource: store.toDoList[key].id
+        id,
+        title: value,
+        start: dueDate
       });
     }
   });

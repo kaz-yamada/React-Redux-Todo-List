@@ -11,18 +11,14 @@ interface IProps {
   title: string;
 }
 
-class CalendarListItem extends React.Component<IProps, {}> {
-  private renderLink = (itemProps: any) => (
-    <Link to={"/calendar/" + this.props.date} {...itemProps} />
-  );
+const CalendarListItem = (props: IProps) => {
+  const { date, title } = props;
 
-  public render() {
-    return (
-      <ListItem button={true} component={this.renderLink as any}>
-        <ListItemText primary={this.props.title} secondary={this.props.date} />
-      </ListItem>
-    );
-  }
-}
+  return (
+    <ListItem button={true} component={Link} to={`/calendar/${date}`}>
+      <ListItemText primary={title} secondary={date} />
+    </ListItem>
+  );
+};
 
 export default CalendarListItem;

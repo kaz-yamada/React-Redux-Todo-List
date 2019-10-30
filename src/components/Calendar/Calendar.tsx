@@ -1,27 +1,43 @@
 import * as React from "react";
 
-import * as moment from "moment";
-import BigCalendar from "react-big-calendar";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import FullCalendar from "@fullcalendar/react";
 
-import { ICalendarProps } from ".";
+import { ICalendarContainerProps } from ".";
 
-const localizer = BigCalendar.momentLocalizer(moment);
+// import "@fullcalendar/core/main.css";
+import "@fullcalendar/daygrid/main.css";
 
-interface IProps {
-  selectedDate?: Date;
+interface ICalendarProps {
+  selectedDate: Date;
 }
 
-class ToDoCalendar extends React.Component<ICalendarProps & IProps, {}> {
-  private onNavigate = () => {};
+interface IProps extends ICalendarProps, ICalendarContainerProps {}
+
+class ToDoCalendar extends React.Component<IProps, {}> {
+  private calendarComponentRef: React.RefObject<FullCalendar>;
+
+  constructor(props: IProps) {
+    super(props);
+    this.calendarComponentRef = React.createRef();
+  }
+
+  public componentDidUpdate() {
+    if (this.calendarComponentRef.current !== null) {
+      const calendarApi = this.calendarComponentRef.current.getApi();
+      calendarApi.gotoDate(this.props.selectedDate); // call a method on the Calendar object
+    }
+  }
 
   public render() {
+    const { eventsList } = this.props;
     return (
-      <BigCalendar
-        localizer={localizer}
-        events={this.props.eventsList}
-        defaultDate={new Date()}
-        onNavigate={this.onNavigate}
-        date={this.props.selectedDate}
+      <FullCalendar
+        height={"parent"}
+        ref={this.calendarComponentRef}
+        defaultView="dayGridMonth"
+        plugins={[dayGridPlugin]}
+        events={eventsList}
       />
     );
   }

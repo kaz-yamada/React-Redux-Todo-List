@@ -25,8 +25,7 @@ const styles = (theme: Theme) =>
   createStyles({
     content: {
       flexGrow: 1,
-      padding: theme.spacing.unit * 3,
-      paddingBottom: theme.spacing.unit * 6,
+      paddingBottom: theme.spacing(1) * 6,
       display: "flex",
       flexFlow: "column"
     },
@@ -36,14 +35,20 @@ const styles = (theme: Theme) =>
       justifyContent: "flex-end",
       padding: "0 8px",
       ...theme.mixins.toolbar
+    },
+    container: {
+      display: "flex",
+      height: "100%",
+      padding: theme.spacing(1) * 2,
+      paddingBottom: 0
     }
   });
 
 class App extends React.Component<IStyles & IAppDispatch, {}> {
-  /**
-   * Get saved user data from cache
-   */
   public componentDidMount() {
+    /**
+     * Get saved user data from cache
+     */
     const persistedState = localStorage.getItem("reduxState")
       ? JSON.parse(localStorage.getItem("reduxState") || "")
       : {};
@@ -61,10 +66,12 @@ class App extends React.Component<IStyles & IAppDispatch, {}> {
         <SideDrawerContainer />
         <div className={classes.content}>
           <div className={classes.toolbar} />
-          <Switch>
-            <Route exact={true} path="/" component={HomeView} />
-            <Route path={`/calendar/:date?`} component={CalendarView} />
-          </Switch>
+          <div className={classes.container}>
+            <Switch>
+              <Route exact={true} path="/" component={HomeView} />
+              <Route path={`/calendar/:date?`} component={CalendarView} />
+            </Switch>
+          </div>
         </div>
         <Footer />
       </div>
@@ -75,7 +82,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IAppDispatch => ({
   loadStore: (store: IReduxStore) => dispatch(loadStore(store))
 });
 
-export default withStyles(styles, { withTheme: true })(
+export default withStyles(styles)(
   connect(
     null,
     mapDispatchToProps

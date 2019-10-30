@@ -1,12 +1,12 @@
 import * as React from "react";
 
 import { createStyles, Theme, withStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
-import AddIcon from "@material-ui/icons/AddCircle";
+import SaveIcon from "@material-ui/icons/Save";
 
 import { IAddItemContainerProps } from ".";
 import { IStyles } from "../../model";
@@ -22,7 +22,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`
+      padding: `${theme.spacing(1)}px ${theme.spacing(1) * 3}px`
     }
   });
 
@@ -88,7 +88,7 @@ class AddItemForm extends React.Component<
 
     return (
       <Grid item={true} xs={12} className={classes.root}>
-        <Grid container={true} alignItems="center" spacing={16}>
+        <Grid container={true} alignItems="center" spacing={6}>
           <Grid item={true} md={true} xs={12}>
             <TextField
               label="Enter New Item"
@@ -122,9 +122,14 @@ class AddItemForm extends React.Component<
             />
           </Grid>
           <Grid item={true} md={1} xs={1} className="center-horizontal">
-            <IconButton aria-label="Add" onClick={this.handleSubmit}>
-              <AddIcon />
-            </IconButton>
+            <Button
+              aria-label="Add"
+              variant="contained"
+              onClick={this.handleSubmit}
+              endIcon={<SaveIcon />}
+            >
+              Add
+            </Button>
           </Grid>
         </Grid>
       </Grid>

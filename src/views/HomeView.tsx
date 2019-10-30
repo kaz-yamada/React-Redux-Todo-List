@@ -27,12 +27,12 @@ const styles = (theme: Theme) =>
       flex: 1
     },
     button: {
-      margin: theme.spacing.unit,
+      margin: theme.spacing(1),
       width: 200
     },
     rightIcon: {
       transition: "transform 0.5s",
-      marginLeft: theme.spacing.unit
+      marginLeft: theme.spacing(1)
     },
     filler: {
       flex: 1
@@ -81,13 +81,15 @@ class HomeView extends React.Component<IProps, IState> {
                 onClick={this.handelAddButton}
                 color={"primary"}
                 className={classes.button}
+                endIcon={
+                  <AddCircle
+                    className={classNames(classes.rightIcon, {
+                      [classes.formVisible]: isFormVisible
+                    })}
+                  />
+                }
               >
                 {isFormVisible ? "Close" : "Add New Item"}
-                <AddCircle
-                  className={classNames(classes.rightIcon, {
-                    [classes.formVisible]: isFormVisible
-                  })}
-                />
               </Button>
               <div className={classes.filler} />
               <FilterControlContainer />

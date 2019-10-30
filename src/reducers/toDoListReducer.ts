@@ -35,8 +35,14 @@ export default function toDoList(
 
       return { ...state };
     }
-    case C.UPDATE_TASK_TEXT: {
-      state[action.payload.id].value = action.payload.newValue;
+    case C.UPDATE_TASK: {
+      const { id, newValue, hasDueDate, newDate } = action.payload;
+      state[id].value = newValue;
+      state[id].hasDueDate = hasDueDate;
+
+      if (hasDueDate) {
+        state[id].dueDate = newDate;
+      }
 
       return { ...state };
     }

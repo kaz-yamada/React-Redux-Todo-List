@@ -42,7 +42,7 @@ const styles = (theme: Theme) =>
       overflowX: "hidden",
       width: 0,
       [theme.breakpoints.up("sm")]: {
-        width: theme.spacing.unit * 7 + 1
+        width: theme.spacing(1) * 7 + 1
       }
     },
     toolbar: {
@@ -78,16 +78,14 @@ class SideDrawer extends React.Component<
         <div className={classes.toolbar} />
         <Divider />
         <List>
-          {MAIN_MENU.map(menuItem => {
-            return (
-              <ListItemLink
-                key={menuItem.name}
-                name={menuItem.name}
-                icon={<menuItem.icon />}
-                to={menuItem.link}
-              />
-            );
-          })}
+          {MAIN_MENU.map(menuItem => (
+            <ListItemLink
+              key={menuItem.name}
+              name={menuItem.name}
+              icon={<menuItem.icon />}
+              to={menuItem.link}
+            />
+          ))}
         </List>
         <Divider />
       </Drawer>

@@ -45,10 +45,15 @@ export const updateDueDate = (itemId: string, newDate: Date): IAction => {
   };
 };
 
-export const updateTask = (itemId: string, newText: string): IAction => {
+export const updateTask = (
+  itemId: string,
+  newText: string,
+  hasDueDate: boolean,
+  newDate?: Date
+): IAction => {
   return {
-    type: C.UPDATE_TASK_TEXT,
-    payload: { id: itemId, newValue: newText }
+    type: C.UPDATE_TASK,
+    payload: { id: itemId, newValue: newText, hasDueDate, newDate }
   };
 };
 

@@ -3,13 +3,17 @@ import * as React from "react";
 import moment from "moment";
 import { RouteComponentProps } from "react-router";
 
-import CalendarContainer from "../components/Calendar";
-import CalenarListContainer from "../components/CalendarList";
-
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import {
+  createStyles,
+  Theme,
+  withStyles,
+  WithStyles
+} from "@material-ui/core/styles";
 
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import CalendarContainer from "../components/Calendar";
+import CalenarListContainer from "../components/CalendarList";
 
 interface IState {
   selectedDate: Date;
@@ -19,7 +23,16 @@ interface IMatchParams {
   date: string;
 }
 
-interface IProps extends RouteComponentProps<IMatchParams> {}
+interface IProps
+  extends RouteComponentProps<IMatchParams>,
+    WithStyles<typeof styles> {}
+
+const styles = (theme: Theme) =>
+  createStyles({
+    calendar: {
+      margin: theme.spacing(1) * 2
+    }
+  });
 
 class CalendarView extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -40,18 +53,12 @@ class CalendarView extends React.Component<IProps, IState> {
     };
   }
 
-  public shouldComponentUpdate() {
-    return (
-      this.props.match.params.date !==
-      moment(this.state.selectedDate).format("DD-MMM-YYYY")
-    );
-  }
-
   public render() {
+    const { classes } = this.props;
     return (
       <Paper style={{ flex: 1 }}>
         <Grid container={true} style={{ height: "100%" }}>
-          <Grid item={true} md={true}>
+          <Grid item={true} md={true} className={classes.calendar}>
             <CalendarContainer selectedDate={this.state.selectedDate} />
           </Grid>
           <Grid item={true} md={4}>
@@ -63,4 +70,4 @@ class CalendarView extends React.Component<IProps, IState> {
   }
 }
 
-export default CalendarView;
+export default withStyles(styles)(CalendarView);
