@@ -1,8 +1,8 @@
-import * as React from "react";
+import React from "react";
 
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
-import { FilterList } from "@material-ui/icons";
+import FilterList from "@material-ui/icons/FilterList";
 
 import { IFilterContainerProps } from ".";
 import { FILTER_MENU } from "../../constants/menu";

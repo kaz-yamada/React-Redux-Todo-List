@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import classNames from "classnames";
 
@@ -54,43 +54,40 @@ const styles = (theme: Theme) =>
     }
   });
 
-class SideDrawer extends React.Component<
-  ISideDrawerContainerProps & IProps,
-  {}
-> {
-  public render() {
-    const { classes, isDrawerOpen } = this.props;
-    return (
-      <Drawer
-        variant="permanent"
-        className={classNames(classes.drawer, {
+const SideDrawer: React.FC<ISideDrawerContainerProps & IProps> = ({
+  classes,
+  isDrawerOpen
+}) => {
+  return (
+    <Drawer
+      variant="permanent"
+      className={classNames(classes.drawer, {
+        [classes.drawerOpen]: isDrawerOpen,
+        [classes.drawerClose]: !isDrawerOpen
+      })}
+      classes={{
+        paper: classNames({
           [classes.drawerOpen]: isDrawerOpen,
           [classes.drawerClose]: !isDrawerOpen
-        })}
-        classes={{
-          paper: classNames({
-            [classes.drawerOpen]: isDrawerOpen,
-            [classes.drawerClose]: !isDrawerOpen
-          })
-        }}
-        open={isDrawerOpen}
-      >
-        <div className={classes.toolbar} />
-        <Divider />
-        <List>
-          {MAIN_MENU.map(menuItem => (
-            <ListItemLink
-              key={menuItem.name}
-              name={menuItem.name}
-              icon={<menuItem.icon />}
-              to={menuItem.link}
-            />
-          ))}
-        </List>
-        <Divider />
-      </Drawer>
-    );
-  }
-}
+        })
+      }}
+      open={isDrawerOpen}
+    >
+      <div className={classes.toolbar} />
+      <Divider />
+      <List>
+        {MAIN_MENU.map(menuItem => (
+          <ListItemLink
+            key={menuItem.name}
+            name={menuItem.name}
+            icon={<menuItem.icon />}
+            to={menuItem.link}
+          />
+        ))}
+      </List>
+      <Divider />
+    </Drawer>
+  );
+};
 
 export default withStyles(styles, { withTheme: true })(SideDrawer);

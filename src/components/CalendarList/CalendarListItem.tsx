@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import { Link } from "react-router-dom";
 
@@ -11,9 +11,7 @@ interface IProps {
   title: string;
 }
 
-const CalendarListItem = (props: IProps) => {
-  const { date, title } = props;
-
+const CalendarListItem: React.FC<IProps> = ({ date, title }) => {
   return (
     <ListItem button={true} component={Link} to={`/calendar/${date}`}>
       <ListItemText primary={title} secondary={date} />

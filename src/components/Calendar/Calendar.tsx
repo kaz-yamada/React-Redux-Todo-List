@@ -1,12 +1,9 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 
 import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
 
 import { ICalendarContainerProps } from ".";
-
-// import "@fullcalendar/core/main.css";
-import "@fullcalendar/daygrid/main.css";
 
 interface ICalendarProps {
   selectedDate: Date;
@@ -14,33 +11,27 @@ interface ICalendarProps {
 
 interface IProps extends ICalendarProps, ICalendarContainerProps {}
 
-class ToDoCalendar extends React.Component<IProps, {}> {
-  private calendarComponentRef: React.RefObject<FullCalendar>;
+const ToDoCalendar: React.FC<IProps> = ({ eventsList, selectedDate }) => {
+  const calendarComponentRef: React.RefObject<FullCalendar> = React.createRef();
 
-  constructor(props: IProps) {
-    super(props);
-    this.calendarComponentRef = React.createRef();
-  }
-
-  public componentDidUpdate() {
-    if (this.calendarComponentRef.current !== null) {
-      const calendarApi = this.calendarComponentRef.current.getApi();
-      calendarApi.gotoDate(this.props.selectedDate); // call a method on the Calendar object
+  useEffect(() => {
+    if (calendarComponentRef.current !== null) {
+      const calendarApi = calendarComponentRef.current.getApi();
+      // call a method on the Calendar object
+      calendarApi.gotoDate(selectedDate);
     }
-  }
+  });
 
-  public render() {
-    const { eventsList } = this.props;
-    return (
-      <FullCalendar
-        height={"parent"}
-        ref={this.calendarComponentRef}
-        defaultView="dayGridMonth"
-        plugins={[dayGridPlugin]}
-        events={eventsList}
-      />
-    );
-  }
-}
+  return (
+    <FullCalendar
+      height={"parent"}
+      ref={calendarComponentRef}
+      defaultView="dayGridMonth"
+      plugins={[dayGridPlugin]}
+      events={eventsList}
+      themeSystem="standard"
+    />
+  );
+};
 
 export default ToDoCalendar;

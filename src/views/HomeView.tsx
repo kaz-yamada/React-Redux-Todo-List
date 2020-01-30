@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import classNames from "classnames";
 
@@ -19,7 +19,7 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Toolbar from "@material-ui/core/Toolbar";
-import { AddCircle } from "@material-ui/icons";
+import AddCircle from "@material-ui/icons/AddCircle";
 
 const styles = (theme: Theme) =>
   createStyles({

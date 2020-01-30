@@ -1,22 +1,15 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
 import CalendarList from "./CalendarList";
 
 // import { Event } from "react-big-calendar";
 import { IReduxStore, IToDoItem } from "../../model/store";
 
-interface IStoreProps {
+export interface ICalendarProps {
   tasksList: IToDoItem[];
 }
 
-interface IDispatchProps {
-  //   selectEvent: (date: Date) => void;
-}
-
-export interface ICalendarProps extends IStoreProps, IDispatchProps {}
-
-const mapStateToProps = (store: IReduxStore): IStoreProps => {
+const mapStateToProps = (store: IReduxStore): ICalendarProps => {
   const list: IToDoItem[] = [];
   Object.keys(store.toDoList).forEach(key => {
     if (store.toDoList[key].hasDueDate) {
@@ -29,11 +22,4 @@ const mapStateToProps = (store: IReduxStore): IStoreProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => ({
-  // selectDate: (value: Date) => dispatch(applyFilter(value))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CalendarList);
+export default connect(mapStateToProps)(CalendarList);

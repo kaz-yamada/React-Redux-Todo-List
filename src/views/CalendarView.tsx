@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import moment from "moment";
 import { RouteComponentProps } from "react-router";
@@ -29,6 +29,11 @@ interface IProps
 
 const styles = (theme: Theme) =>
   createStyles({
+    root: {
+      flex: 1,
+      minHeight: 600
+    },
+    container: { height: "100%" },
     calendar: {
       margin: theme.spacing(1) * 2
     }
@@ -56,8 +61,8 @@ class CalendarView extends React.Component<IProps, IState> {
   public render() {
     const { classes } = this.props;
     return (
-      <Paper style={{ flex: 1 }}>
-        <Grid container={true} style={{ height: "100%" }}>
+      <Paper className={classes.root}>
+        <Grid container={true} className={classes.container}>
           <Grid item={true} md={true} className={classes.calendar}>
             <CalendarContainer selectedDate={this.state.selectedDate} />
           </Grid>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import { createStyles, Theme, withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";

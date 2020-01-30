@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
@@ -26,32 +26,28 @@ const styles = (theme: Theme) =>
   });
 
 interface IProps extends IHeaderContainerProps, IStyles {}
-class Header extends React.Component<IProps, {}> {
-  private handleDrawerToggle = () => {
-    this.props.toggleDrawer();
+
+const Header: React.FC<IProps> = ({ classes, toggleDrawer }) => {
+  const handleDrawerToggle = () => {
+    toggleDrawer();
   };
 
-  public render() {
-    const { classes } = this.props;
-
-    return (
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={this.handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            To Do List
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    );
-  }
-}
-
+  return (
+    <AppBar position="fixed" className={classes.appBar}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="Open drawer"
+          onClick={handleDrawerToggle}
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" color="inherit">
+          To Do List
+        </Typography>
+      </Toolbar>
+    </AppBar>
+  );
+};
 export default withStyles(styles, { withTheme: true })(Header);
